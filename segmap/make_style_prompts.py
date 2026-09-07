@@ -26,6 +26,8 @@ STYLES = {
         "medium": "Live-action video captured on a full-frame digital cinema camera from a tracking vehicle in winter conditions",
         "style": "Photorealistic automotive cinematography, cold and naturalistic",
         "context": "A tracking shot of a convertible taxi driving through a snow-covered boulevard on an overcast winter afternoon",
+        "composition": "Medium-wide profile framing that holds the car centrally as it travels, snow banks and bare trees forming a horizontal band across the upper third and the snow-covered carriageway occupying the lower third, with the vehicle bridging the two",
+        "key_changes": "Weak highlights shift along the bodywork as the car moves; snow banks, bare trees and the capped wall sweep past in motion blur while the vehicle stays locked in frame.",
         "action_a": "The taxi travels left to right through packed snow, the camera holding pace alongside as slush sprays from the tyres and snow-laden trees pass behind.",
         "action_b": "The car continues across the frame, the passengers' breath streaming backward in the cold air, meltwater running back across the bonnet.",
         "caption": "At 0:00 a yellow taxi moves left to right along a snow-covered boulevard under flat grey light, the camera tracking alongside as slush sprays from beneath the tyres. By 0:01 the wheels cut dark lines through surface snow and the woman's red scarf streams backward in the freezing air. Through to 0:02 the car holds its place in frame, salt film and meltwater glistening on the yellow paintwork, while ploughed snow banks and bare trees sweep past behind.",
@@ -46,6 +48,8 @@ STYLES = {
         "medium": "Live-action video captured on a full-frame digital cinema camera at high ISO from a tracking vehicle",
         "style": "Photorealistic night automotive cinematography, high contrast and neon-lit",
         "context": "A tracking shot of a convertible taxi driving through a rain-soaked city boulevard at night",
+        "composition": "Medium-wide profile framing that holds the car centrally as it travels, the lit shopfront sign line forming a horizontal band across the upper third and the mirrored wet carriageway occupying the lower third, with the vehicle bridging the two",
+        "key_changes": "Coloured specular streaks travel along the bodywork as the car moves; signage, wet pavement and their reflections sweep past in motion blur while the vehicle stays locked in frame.",
         "action_a": "The taxi travels left to right across the wet road, the camera holding pace as neon reflections sweep along the flank and spray lifts from the tyres.",
         "action_b": "The car continues through standing water, coloured light raking across the bodywork and doubling in the mirrored asphalt below.",
         "caption": "At 0:00 a yellow taxi moves left to right along a rain-soaked boulevard at night, the camera tracking alongside as neon reflections streak across its wet flank. By 0:01 it passes through standing water, spray lifting behind the wheels while the woman's gold earrings catch a passing sign. Through to 0:02 the car holds frame as shopfront signage sweeps past behind, each source smeared long into the black road surface.",
@@ -66,6 +70,8 @@ STYLES = {
         "medium": "Live-action video captured on a full-frame digital cinema camera from a tracking vehicle in desert conditions",
         "style": "Photorealistic automotive cinematography, high-key and sun-bleached",
         "context": "A tracking shot of a convertible taxi driving along an open desert highway at midday",
+        "composition": "Medium-wide profile framing that holds the car centrally as it travels, scrub, rock outcrops and distant mesas forming a horizontal band across the upper third and the bleached highway occupying the lower third, with the vehicle bridging the two",
+        "key_changes": "Hard specular glints travel along the bodywork as the car moves; scrub, outcrops and the trailing dust plume sweep past in motion blur while the vehicle stays locked in frame.",
         "action_a": "The taxi travels left to right along the empty highway, the camera holding pace as a dust plume lifts behind and heat shimmer distorts the road ahead.",
         "action_b": "The car continues across the frame, hard overhead sun glaring off the chrome, scrub and rock passing behind in the dry air.",
         "caption": "At 0:00 a dust-covered yellow taxi moves left to right along an empty desert highway under vertical midday sun, the camera tracking alongside. By 0:01 a pale dust plume lifts behind the rear wheels and the woman's silk scarf streams back from her throat. Through to 0:02 the car holds frame, hard light glaring off chrome and bleached paintwork, while scrub and distant mesas sweep past in the dry haze.",
@@ -86,6 +92,11 @@ def main():
         prompt["lighting"] = style["lighting"]
         prompt["aesthetics"]["color_scheme"] = style["colour"]
         prompt["aesthetics"]["visual_texture"] = style["texture"]
+        # Composition and key_changes name what is actually in shot, so they
+        # have to move with the setting. Left at the base text they described a
+        # palm-lined wall in the middle of a desert highway.
+        prompt["aesthetics"]["composition"] = style["composition"]
+        prompt["segments"][0]["key_changes"] = style["key_changes"]
         prompt["style_medium"] = style["medium"]
         prompt["artistic_style"] = style["style"]
         prompt["context"] = style["context"]

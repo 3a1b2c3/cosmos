@@ -19,7 +19,7 @@
     "illumination_effect": "High contrast saturated light from neon and sodium sources raking across wet paintwork, specular streaks running the length of the body, every source doubled in the mirrored road surface"
   },
   "aesthetics": {
-    "composition": "Medium-wide profile framing that holds the car centrally as it travels, the boundary wall and palms forming a horizontal band across the upper third and the roadway occupying the lower third, with the vehicle bridging the two",
+    "composition": "Medium-wide profile framing that holds the car centrally as it travels, the lit shopfront sign line forming a horizontal band across the upper third and the mirrored wet carriageway occupying the lower third, with the vehicle bridging the two",
     "color_scheme": "Deep blacks and wet asphalt against saturated neon magenta, cyan, red and amber, the yellow bodywork reading warm and desaturated under mixed colour temperature",
     "visual_texture": "Rain streaks running across paintwork, water beading and shearing off in the airflow, sharp specular detail in wet chrome, fine spray suspended behind the wheels, mirror reflections broken by ripples"
   },
@@ -50,7 +50,7 @@
       "segment_index": 0,
       "time_range": "0:00-0:02",
       "description": "A tracking shot of a convertible taxi driving through a rain-soaked city boulevard at night",
-      "key_changes": "Specular highlights travel along the bodywork as the car moves; the background wall, hedging and palms sweep past in motion blur while the vehicle stays locked in frame."
+      "key_changes": "Coloured specular streaks travel along the bodywork as the car moves; signage, wet pavement and their reflections sweep past in motion blur while the vehicle stays locked in frame."
     }
   ],
   "transitions": [],

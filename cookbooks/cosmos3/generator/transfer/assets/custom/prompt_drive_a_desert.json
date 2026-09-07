@@ -19,7 +19,7 @@
     "illumination_effect": "Extreme contrast with blown highlights on upper surfaces and dense shadow beneath; heat shimmer distorting the road at distance, airborne dust catching light as a pale haze"
   },
   "aesthetics": {
-    "composition": "Medium-wide profile framing that holds the car centrally as it travels, the boundary wall and palms forming a horizontal band across the upper third and the roadway occupying the lower third, with the vehicle bridging the two",
+    "composition": "Medium-wide profile framing that holds the car centrally as it travels, scrub, rock outcrops and distant mesas forming a horizontal band across the upper third and the bleached highway occupying the lower third, with the vehicle bridging the two",
     "color_scheme": "Bleached sand, pale ochre and washed grey asphalt under an almost white sky, the yellow bodywork tending toward the desert palette rather than contrasting with it",
     "visual_texture": "Dust film and paint chalking on the bodywork, cracked hardpan and asphalt aggregate, airborne dust catching light, heat shimmer distorting distant detail"
   },
@@ -50,7 +50,7 @@
       "segment_index": 0,
       "time_range": "0:00-0:02",
       "description": "A tracking shot of a convertible taxi driving along an open desert highway at midday",
-      "key_changes": "Specular highlights travel along the bodywork as the car moves; the background wall, hedging and palms sweep past in motion blur while the vehicle stays locked in frame."
+      "key_changes": "Hard specular glints travel along the bodywork as the car moves; scrub, outcrops and the trailing dust plume sweep past in motion blur while the vehicle stays locked in frame."
     }
   ],
   "transitions": [],
