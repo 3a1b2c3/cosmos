@@ -1,0 +1,114 @@
+# Running Cosmos 3 here
+
+Notes for running this checkout on our hardware, and what the three scripts in
+the repo root do. The upstream instructions are in [`README.md`](./README.md);
+this covers what differs for us.
+
+## What this repository is
+
+Documentation, cookbooks and evaluation material. There is no `pyproject.toml`
+or `setup.py` — nothing to install *from* here. The models come from Hugging
+Face and the code from Diffusers, vLLM-Omni, SGLang or TensorRT-LLM. "Installing
+Cosmos" means building an environment that can run those.
+
+## Scripts
+
+| Script | Use |
+| --- | --- |
+| [`setup_diffusers.sh`](./setup_diffusers.sh) | Build a venv for the Diffusers path, torch from an explicit CUDA index. |
+| [`run_docker.sh`](./run_docker.sh) | Shell in the NGC container, repo and HF cache mounted. |
+| [`run_transfer_headless.sh`](./run_transfer_headless.sh) | Run the video-transfer notebook with no browser. |
+
+## Which CUDA build
+
+`uv pip install --torch-backend=...` accepts values up to **cu130**; it rejects
+`cu132` outright, and there is no `cu133`. A 13.x driver runs cu130 wheels —
+CUDA minor versions are forward compatible — so cu130 is the simple answer for
+both boxes.
+
+If a cu132 build is required specifically, it has to come from
+`--index-url https://download.pytorch.org/whl/cu132`, which is what
+`setup_diffusers.sh` does. Note that index is sparse: pinning a torch version
+that only exists elsewhere resolves to a **CPU build** rather than failing, and
+that surfaces much later as `Torch not compiled with CUDA enabled`.
+
+## Video transfer (video2video) on the DGX
+
+Headless, so the notebook's "switch the Jupyter kernel by hand" step cannot
+happen. `run_transfer_headless.sh` does the install as a shell step and executes
+the notebook with that kernel already selected.
+
+```bash
+sudo apt-get install -y libxcb1 libgl1 libglib2.0-0
+export HF_HOME=/path/to/large/cache
+uvx hf@latest auth login
+bash run_transfer_headless.sh
+```
+
+| Variable | Default | Effect |
+| --- | --- | --- |
+| `MODELS` | `nano` | `all` also runs Cosmos3-Super, which is 32B and multi-GPU. |
+| `TORCH_BACKEND` | `cu130` | Passed to `uv pip install --torch-backend`. |
+| `SKIP_INSTALL` | `0` | Reuse an environment already built. |
+| `INSTALL_ONLY` | `0` | Build the environment and stop. |
+| `COSMOS3_DIFFUSERS_VENV` | `./.venv-cosmos3-diffusers` | Where the venv goes. |
+
+Nano mode runs a filtered copy of the notebook, so the checked-in one keeps its
+Super cells and is not rewritten by `--inplace`.
+
+Clips land in `outputs/notebooks/diffusers/<model>/<spec>/vision.mp4`.
+
+### To run it interactively instead
+
+Tunnel a browser in rather than binding to a public interface — the token is the
+only authentication:
+
+```bash
+jupyter lab --no-browser --ip=127.0.0.1 --port=8888
+ssh -N -L 8888:127.0.0.1:8888 <user>@<dgx>     # from the workstation
+```
+
+Then switch the kernel to *Cosmos3 Diffusers (Python 3.13)* when the notebook
+says to, and run the Restore Environment cell immediately after.
+
+### The five controls
+
+Every asset ships in the repo, about 10 MB in total; nothing is downloaded.
+
+| Control | Asset | Gated? |
+| --- | --- | --- |
+| Edge (Canny) | `assets/edge/control_edge.mp4` | no |
+| Depth | `assets/depth/control_depth.mp4` | no |
+| Blur | `assets/blur/control_blur.mp4` | **yes** |
+| Segmentation | `assets/seg/control_seg.mp4` | **yes** |
+| World scenario map | `assets/wsm/control_wsm.mp4` | **yes** |
+
+Gated controls need access to
+[nvidia/Cosmos-1.0-Guardrail](https://huggingface.co/nvidia/Cosmos-1.0-Guardrail),
+which is granted by request. Edge and depth work without it, so start there.
+
+The control videos are precomputed structural signals, not raw footage: the
+model takes the signal plus a caption and generates a clip that follows it. The
+captions in `prompt.json` are structured scene descriptions — subjects,
+lighting, cinematography, per-segment actions — rather than a sentence.
+
+### How long it takes
+
+Transfer is **not** in [`inference_benchmarks.md`](./inference_benchmarks.md);
+only t2v, i2v and t2i are, and the step count behind those numbers is not
+stated. Scaling the B300 Diffusers i2v figure (139.6 s for 189 frames at 720p)
+by this workload's 121 frames and 50 steps puts a 720p clip at roughly **two to
+three minutes**, so five controls is 10-15 minutes. Treat that as an
+order of magnitude, not a measurement.
+
+Diffusers is the slow path by design — it runs without custom CUDA graphs. On
+the same B300, vLLM-Omni does 720p t2v in 102 s and NIM in 90 s against
+Diffusers' 139 s. Both need Linux, and vLLM-Omni and SGLang are reachable
+through `run_docker.sh`.
+
+## Windows
+
+Only the Diffusers path is reachable; vLLM-Omni, SGLang, TensorRT-LLM and NIM
+are Linux and container paths. The notebooks are Linux-only too — they check for
+`$VENV/bin/python`, which uv does not create on Windows. Use Windows for reading
+the cookbooks and editing prompts, and the DGX to run them.
