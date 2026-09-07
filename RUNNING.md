@@ -41,6 +41,7 @@ the notebook with that kernel already selected.
 ```bash
 sudo apt-get install -y libxcb1 libgl1 libglib2.0-0
 export HF_TOKEN=<token>
+export HF_HUB_DISABLE_SYMLINKS=1              # see "The symlink guard on the DGX"
 uvx hf@latest download nvidia/Cosmos3-Nano    # 1.23 GB, resumable
 bash run_transfer_headless.sh
 ```
@@ -91,9 +92,17 @@ running against the wrong interpreter.
 Clips land under the cookbook directory, not the repo root:
 `cookbooks/cosmos3/generator/transfer/outputs/notebooks/diffusers/<model>/<spec>/vision.mp4`.
 
-The notebook also runs with `guardrails: False`, so the gated Guardrail
-repository may not be needed for blur, segmentation and WSM after all —
-despite the README listing it as a requirement.
+The notebook does not disable guardrails wholesale. It disables them per
+control:
+
+```python
+GUARDRAIL_DISABLED_CONTROLS = frozenset({"edge", "depth"})
+guardrails_enabled = control not in GUARDRAIL_DISABLED_CONTROLS
+```
+
+So edge and depth skip the Guardrail entirely, and blur, segmentation and WSM
+construct it — which is why those three need the gated repository and the other
+two do not.
 
 ### Keeping the scripts in sync
 
@@ -165,6 +174,52 @@ Every asset ships in the repo, about 10 MB in total; nothing is downloaded.
 Gated controls need access to
 [nvidia/Cosmos-1.0-Guardrail](https://huggingface.co/nvidia/Cosmos-1.0-Guardrail),
 which is granted by request. Edge and depth work without it, so start there.
+
+### The symlink guard on the DGX
+
+A gated control can fail after the Guardrail has downloaded successfully:
+
+```
+PermissionError: Security Violation [pathsec.open]: refusing to follow a
+symlink at open time for '.../models--nvidia--Cosmos-1.0-Guardrail/snapshots/
+<rev>/blocklist/nltk_data/tokenizers/punkt_tab/english/collocations.tab'
+(TOCTOU guard, CWE-59)
+```
+
+This is host hardening, not a Hugging Face fault, and access is fine — the
+download proved that. The cache stores one real copy of each file under
+`blobs/` and makes every `snapshots/<rev>/...` path a **symlink** into it, so
+reading anything from a snapshot follows a symlink by design. A guard that
+refuses symlink traversal at open time therefore breaks the cache wholesale.
+The Guardrail hits it first because `nltk` opens its data file directly, rather
+than through `huggingface_hub`.
+
+The fix is to make the cache store real files:
+
+```bash
+export HF_HUB_DISABLE_SYMLINKS=1
+```
+
+In `huggingface_hub`, this short-circuits `are_symlinks_supported()` in
+`file_download.py`, which applies to the **hub cache** and not only to
+`local_dir` downloads. Files are duplicated instead of linked, costing some
+disk — irrelevant at the Guardrail's size.
+
+It only affects new downloads, so anything already cached has to be re-fetched
+with the variable set:
+
+```bash
+uvx hf@latest download nvidia/Cosmos-1.0-Guardrail
+```
+
+Prefer this over disabling the guard, even with sudo. One variable scoped to
+one cache beats removing symlink protection for every process on a shared
+machine, and the guard is IT hardening rather than something installed here —
+so it is likely to return on the next configuration push and cost the same
+debugging twice.
+
+`Cosmos3-Nano` can hit the same wall whenever something reads a snapshot path
+outside `huggingface_hub`. Same fix, same re-download.
 
 The control videos are precomputed structural signals, not raw footage: the
 model takes the signal plus a caption and generates a clip that follows it. The
