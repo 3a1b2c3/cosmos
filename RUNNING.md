@@ -131,8 +131,18 @@ bash run_framework_headless.sh
 | `DRIVER_ONLY` | `0` | Build the driver venv and stop. |
 | `DRIVER_VENV` | `./.venv-notebook-driver` | Where the driver venv goes. |
 
-Four things in this notebook need handling before it runs unattended, and the
-script does all four:
+Five things in this notebook need handling before it runs unattended, and the
+script does all five:
+
+- **Inference defaults to `--guardrails`**, which downloads
+  **`nvidia/Cosmos-Guardrail1`** — a different repository from
+  `nvidia/Cosmos-1.0-Guardrail`, gated separately. Access to one does not grant
+  the other. Worse, the framework fetches it for *every* control, including edge
+  and depth, which the Diffusers path runs with no guardrail at all. So there is
+  no ungated control to start with here, and without the grant the first
+  generation cell fails having produced nothing. The script inserts
+  `--no-guardrails` into each inference cell; `GUARDRAILS=1` restores the
+  default.
 
 - **§4 runs `apt-get install` without sudo.** Under `set -euo pipefail` that
   aborts the cell for any non-root user, and papermill stops there. The cell is
@@ -280,6 +290,16 @@ captions in `prompt.json` are structured scene descriptions — subjects,
 lighting, cinematography, per-segment actions — rather than a sentence.
 
 ### How long it takes
+
+Measured on the GB300, framework path, Cosmos3-Nano at 1280x720, 121 frames,
+UniPC with 50 steps: **1 min 53 s of sampling per control**, averaging
+2.26 s/step. That is the diffusion loop only — checkpoint load, VAE decode and
+encoding are on top, so budget somewhat more per control and roughly 15 minutes
+for a full Nano pass over the five single controls plus the multi-control
+section.
+
+The estimate below predates that measurement and is kept because it is the only
+figure available for the Diffusers path:
 
 Transfer is **not** in [`inference_benchmarks.md`](./inference_benchmarks.md);
 only t2v, i2v and t2i are, and the step count behind those numbers is not
