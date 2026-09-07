@@ -1,74 +1,62 @@
 {
   "subjects": [
     {
-      "description": "A yellow city taxi cab driving through downtown traffic, seen from a chase camera positioned behind and slightly above the vehicle.",
-      "appearance_details": "Glossy yellow paintwork with scuffed lower panels and road grime along the sills, a checkered stripe along the doors, roof sign lit, rear bumper dented on one corner, tyres wet enough to throw fine spray.",
-      "position": "Centre frame, occupying the lower half, receding slightly as traffic opens ahead."
+      "description": "A yellow taxi cab, photographed rather than rendered, its bodywork carrying the wear of daily service.",
+      "appearance_details": "Deep gloss yellow lacquer with fine swirl marks from machine washing, road film greying the lower doors and sills, a stone-chipped leading edge, chrome trim dulled and pitted, window glass carrying soft reflections of the buildings alongside, tyres matte black with damp sidewalls.",
+      "position": "Follows the position given by the control signal."
     },
     {
-      "description": "Surrounding city traffic of sedans, delivery vans and a articulated bus sharing the multi-lane road.",
-      "appearance_details": "Mixed muted colours, reflective rear lights, licence plates unreadable at this distance, windows carrying reflections of the buildings above.",
-      "position": "Distributed across the adjacent lanes and receding into the distance."
+      "description": "Surrounding road traffic sharing the carriageway.",
+      "appearance_details": "Automotive paint in muted greys and dark blues with realistic specular falloff, glass reflecting sky and facades, rubber and plastic trim reading as distinct materials from the painted panels, brake lights glowing warm against the daylight.",
+      "position": "Follows the positions given by the control signal."
     }
   ],
-  "background_setting": "A dense downtown avenue lined with mid-rise commercial buildings in glass, painted brick and weathered concrete. Shopfronts with awnings run along both pavements, interrupted by street trees, parking meters, fire hydrants and traffic light gantries. Pedestrians move along the pavements and wait at crossings. The road surface is asphalt with worn lane markings, manhole covers, and patches still damp from earlier rain.",
+  "background_setting": "A downtown avenue of mid-rise buildings in glass, painted brick and weathered concrete, each material distinct in reflectance. Asphalt shows aggregate grain, worn lane markings, tar seams and damp patches that mirror the sky. Street furniture, signage and foliage carry photographic surface detail and appropriate wear.",
   "lighting": {
-    "conditions": "Bright overcast daylight with intermittent direct sun",
-    "direction": "High and slightly behind the camera, raking across the roadway from the left",
-    "shadows": "Soft-edged shadows beneath vehicles and along the base of buildings, lengthening where the avenue falls into shade",
-    "illumination_effect": "Even diffuse illumination with specular highlights on wet asphalt, glass facades and vehicle paintwork"
+    "conditions": "Bright overcast daylight, the sky acting as a large soft source",
+    "direction": "High and slightly behind camera, raking across the roadway",
+    "shadows": "Soft-edged contact shadows beneath vehicles, grounding them to the road surface",
+    "illumination_effect": "Even diffuse illumination with tight specular highlights on paintwork, glass and wet asphalt, and gentle aerial haze with distance"
   },
   "aesthetics": {
-    "composition": "Chase framing that holds the taxi centrally with the avenue converging toward a vanishing point, buildings framing both edges",
-    "color_scheme": "Saturated yellow against desaturated greys, blues and browns of the urban environment, with red and amber accents from brake lights and signage",
-    "visual_texture": "Photographic detail in asphalt grain, building materials, reflections and atmospheric haze with distance"
+    "composition": "As given by the control signal",
+    "color_scheme": "Saturated yellow against desaturated urban greys and blues, warm red and amber accents from lamps and signage",
+    "visual_texture": "Photographic microdetail throughout: asphalt aggregate, brick mortar, glass smears, paint imperfection and tyre tread"
   },
   "cinematography": {
-    "camera_motion": "Tracking, following the vehicle at speed",
-    "framing": "Medium-wide shot",
-    "camera_angle": "Slightly elevated, behind the subject",
-    "depth_of_field": "Deep",
-    "focus": "Taxi and immediate surroundings in sharp focus, distance softened by atmospheric haze",
-    "lens_focal_length": "Wide-angle"
+    "camera_motion": "As given by the control signal",
+    "framing": "As given by the control signal",
+    "camera_angle": "As given by the control signal",
+    "depth_of_field": "Deep, with mild atmospheric softening at distance",
+    "focus": "Vehicles and near roadway critically sharp",
+    "lens_focal_length": "Wide-angle, with the mild barrel distortion of a real lens"
   },
-  "style_medium": "Live-action video",
-  "artistic_style": "Realistic documentary cinematography",
-  "context": "Urban driving footage captured from a following vehicle",
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera",
+  "artistic_style": "Photorealistic documentary cinematography",
+  "context": "Urban driving footage",
   "actions": [
     {
-      "time": "0:00-0:15",
-      "description": "The taxi accelerates along the avenue, weaving between slower traffic, its body rolling slightly as it changes lane."
-    },
-    {
-      "time": "0:15-0:30",
-      "description": "The taxi passes through an intersection, the camera holding station behind as cross-traffic and pedestrians clear the junction."
-    },
-    {
-      "time": "0:30-0:45",
-      "description": "The road opens into a wider stretch; the taxi gains speed, spray lifting from the wet surface behind the rear wheels."
-    },
-    {
-      "time": "0:45-1:00",
-      "description": "The taxi brakes and turns, brake lights flaring, tyres tracking through the corner as buildings sweep past the frame edges."
+      "time": "0:00-0:04",
+      "description": "Vehicles travel along the avenue at speed, their motion, spacing and camera framing following the control signal exactly; light plays across the paintwork as they move."
     }
   ],
   "text_and_signage_elements": [],
   "segments": [
     {
       "segment_index": 0,
-      "time_range": "0:00-1:00",
-      "description": "A continuous chase shot following a yellow taxi through a downtown avenue, past traffic, intersections and pedestrian crossings.",
-      "key_changes": "Speed and lane position vary continuously; the surrounding architecture and traffic density change as the route progresses."
+      "time_range": "0:00-0:04",
+      "description": "A brief continuous shot of traffic moving along a downtown avenue in overcast daylight.",
+      "key_changes": "Lighting on the vehicle surfaces shifts as they travel; the structure of the scene follows the control signal."
     }
   ],
   "transitions": [],
-  "temporal_caption": "The sequence opens behind a yellow taxi accelerating along a downtown avenue between slower traffic, its suspension loading as it changes lane. It crosses an intersection with the camera holding station behind, then reaches an open stretch where it gains speed and lifts fine spray from the damp asphalt. Toward the end it brakes into a turn, brake lights flaring, the surrounding buildings sweeping past the edges of frame as the corner tightens.",
-  "audio_description": "Continuous engine note rising and falling with acceleration and braking, tyre roar on wet asphalt, the wash of passing vehicles, distant horns and the general low rumble of city traffic. No dialogue or music.",
+  "temporal_caption": "Across four seconds, traffic moves along a downtown avenue under bright overcast light. Reflections travel across the vehicles' paintwork and glass as they pass, contact shadows stay locked beneath the wheels, and the wet asphalt holds a soft mirror of the sky.",
+  "audio_description": "Engine note and tyre roar on damp asphalt, the wash of passing vehicles, and the low rumble of city traffic. No dialogue or music.",
   "resolution": {
     "W": 1280,
     "H": 720
   },
   "aspect_ratio": "16,9",
-  "duration": "60s",
+  "duration": "4s",
   "fps": 30
 }

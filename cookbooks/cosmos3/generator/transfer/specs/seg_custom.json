@@ -16,7 +16,7 @@
   "negative_prompt_keep_metadata": false,
   "guidance": 3.0,
   "control_guidance": 2.0,
-  "negative_prompt_file": "../assets/negative_prompt.json",
+  "negative_prompt_file": "../assets/custom/negative_prompt.json",
   "prompt_path": "../assets/custom/prompt.json",
   "seg": {
     "control_path": "../assets/custom/control_seg.mp4"

@@ -1,0 +1,51 @@
+{
+  "subjects": [
+    {
+      "description": "Vehicles with warped or asymmetric bodywork, wheels that are elliptical or detached from the arches, and panels that change shape between frames.",
+      "appearance_details": "Flat untextured paint with no specular response, plastic-looking surfaces with uniform sheen, smeared or melted trim, windows rendered as opaque grey fill, licence plates and badges dissolving into noise.",
+      "position": "Drifting away from the structure given by the control signal, or duplicated elsewhere in frame."
+    }
+  ],
+  "background_setting": "Flat repeated textures, buildings with seams and tiling artifacts, asphalt as a uniform grey plane without aggregate or wear, street furniture fused into the road surface, geometry that mutates between frames.",
+  "lighting": {
+    "conditions": "Harsh, flat, directionless illumination with no falloff",
+    "direction": "Inconsistent between subjects and background, shifting frame to frame",
+    "shadows": "Absent or detached from their objects, leaving vehicles floating above the road",
+    "illumination_effect": "Blown highlights, crushed shadows, and specular response that ignores material differences"
+  },
+  "aesthetics": {
+    "composition": "Framing that contradicts the control signal, with subjects displaced or cropped inconsistently",
+    "color_scheme": "Oversaturated or muddy, with colour banding across skies and flat surfaces",
+    "visual_texture": "Blurred, waxy surfaces without microdetail, or oversharpened halos along every edge"
+  },
+  "cinematography": {
+    "camera_motion": "Jittery, unstable motion unrelated to the control signal, with stuttering or reversed direction",
+    "framing": "Drifting arbitrarily rather than tracking the subject",
+    "camera_angle": "Changing abruptly without cause",
+    "depth_of_field": "Focus breathing and randomly shifting focal planes",
+    "focus": "Soft on the subject and sharp on empty background",
+    "lens_focal_length": "Distortion that varies frame to frame"
+  },
+  "style_medium": "Heavily compressed video with blocking, banding and mosquito noise",
+  "artistic_style": "Video-game render, CGI with obvious synthetic shading, cartoon or illustration",
+  "context": "A synthetic clip that reads as rendered rather than photographed",
+  "actions": [
+    {
+      "time": "0:00-0:04",
+      "description": "Objects slide without their wheels turning, pass through one another, appear and vanish between frames, or move at speeds inconsistent with the camera."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:04",
+      "description": "A shot whose content degrades over its duration, losing coherence with the control signal.",
+      "key_changes": "Progressive drift in colour, geometry and texture; identity of objects not preserved across frames."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "Structure decays across the clip: surfaces lose their material identity, shadows part from their objects, vehicle bodies deform, and the scene ceases to correspond to the control signal it began from.",
+  "audio_description": "",
+  "physical_realism": "No adherence to physical law. Vehicles float free of the road, wheels turn independently of motion, reflections do not correspond to the surroundings, shadows fall in directions no light source explains, and objects change scale as they move through the scene."
+}
