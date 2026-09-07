@@ -1,15 +1,22 @@
-# Build a Cosmos 3 transfer segmentation control video from game footage.
+# Build a Cosmos 3 transfer segmentation control video from ordinary footage.
 #
 # The transfer cookbook consumes precomputed control videos; nothing in that
 # repository produces them. This uses SAM 2's video predictor, which propagates
-# masks from prompts on the first frame, so each object keeps one colour for the
-# whole clip. Per-frame segmentation flickers at boundaries and that flicker
-# becomes shimmer in the generated video.
+# masks from prompts on the first frame of a shot, so an object keeps one colour
+# for as long as it is tracked. Per-frame segmentation flickers at boundaries and
+# that flicker becomes shimmer in the generated video.
 #
-# Matching the shipped assets/seg/control_seg.mp4: flat colour per object,
-# black background, no fixed semantic palette. 41% of that frame is unlabeled,
-# so covering only the salient objects is enough.
+# Propagation cannot cross a scene change, so anything longer than a single shot
+# is split at its cuts and re-prompted for each one. Cuts are found by frame
+# difference rather than ffmpeg's scene filter, which misses flashes and
+# dissolves: their change is spread over several frames, so each individual delta
+# stays under the threshold while SAM 2 still loses every object at once.
+#
+# Matching the shipped assets/seg/control_seg.mp4: flat colour per object, black
+# background, no fixed semantic palette. 41% of that frame is unlabeled, so
+# covering only the salient objects is enough.
 import argparse
+import os
 import shutil
 import sys
 import tempfile
@@ -37,6 +44,10 @@ PALETTE = [
     (100, 0, 160),
     (0, 200, 200),
     (200, 60, 0),
+    (60, 220, 60),
+    (255, 255, 255),
+    (120, 90, 255),
+    (200, 200, 120),
 ]
 
 
@@ -70,10 +81,11 @@ def extract_frames(video_path, frames_dir, want_frames, target_fps, start_second
     if start_seconds > 0:
         capture.set(cv2.CAP_PROP_POS_FRAMES, int(round(start_seconds * source_fps)))
 
+    limit = want_frames if want_frames > 0 else float("inf")
     written = 0
     read_index = 0
     size = None
-    while written < want_frames:
+    while written < limit:
         ok, frame = capture.read()
         if not ok:
             break
@@ -90,22 +102,39 @@ def extract_frames(video_path, frames_dir, want_frames, target_fps, start_second
     return written, size
 
 
-def auto_prompts(first_frame_path, max_objects, model_id, device):
-    """Segment the first frame, keep the largest regions, return their centroids.
+def find_shot_boundaries(frames_dir, count, threshold):
+    """Indices where a new shot begins, by mean absolute frame difference.
+
+    Deliberately not ffmpeg's scene filter: a flash or dissolve spreads its
+    change across several frames, so no single delta trips that threshold even
+    though tracking dies. Comparing downscaled greyscale catches both, and the
+    cost is trivial next to propagation.
+    """
+    boundaries = [0]
+    previous = None
+    for index in range(count):
+        frame = cv2.imread(str(frames_dir / f"{index:05d}.jpg"))
+        small = cv2.cvtColor(cv2.resize(frame, (320, 180)), cv2.COLOR_BGR2GRAY).astype(np.float32)
+        if previous is not None and float(np.abs(small - previous).mean()) > threshold:
+            boundaries.append(index)
+        previous = small
+    return boundaries
+
+
+def auto_prompts(frame_path, max_objects, generator):
+    """Segment one frame, keep the largest regions, return interior points.
 
     The video predictor takes point prompts, so each automatic mask is reduced
     to one interior point. Largest-first because small regions survive neither
     propagation nor the model's downscaling of the control video.
     """
-    generator = SAM2AutomaticMaskGenerator.from_pretrained(model_id, device=device)
-    image = cv2.cvtColor(cv2.imread(str(first_frame_path)), cv2.COLOR_BGR2RGB)
+    image = cv2.cvtColor(cv2.imread(str(frame_path)), cv2.COLOR_BGR2RGB)
     masks = generator.generate(image)
     masks.sort(key=lambda entry: entry["area"], reverse=True)
 
     points = []
     for entry in masks[:max_objects]:
-        segmentation = entry["segmentation"]
-        ys, xs = np.nonzero(segmentation)
+        ys, xs = np.nonzero(entry["segmentation"])
         if len(xs) == 0:
             continue
         # Centroid can land outside a concave mask; snap to the nearest pixel
@@ -113,23 +142,64 @@ def auto_prompts(first_frame_path, max_objects, model_id, device):
         cx, cy = xs.mean(), ys.mean()
         nearest = np.argmin((xs - cx) ** 2 + (ys - cy) ** 2)
         points.append((float(xs[nearest]), float(ys[nearest])))
-    if not points:
-        raise SystemExit("automatic segmentation found no regions; pass --points instead")
-    del generator
-    torch.cuda.empty_cache()
     return points
+
+
+def link_segment(frames_dir, segment_dir, first, last):
+    """Renumber a shot's frames from zero, since init_state expects that.
+
+    Hard links rather than copies: same volume, and a minute of 1080p JPEGs is
+    large enough that duplicating it is worth avoiding.
+    """
+    segment_dir.mkdir()
+    for offset, index in enumerate(range(first, last)):
+        source = frames_dir / f"{index:05d}.jpg"
+        target = segment_dir / f"{offset:05d}.jpg"
+        try:
+            os.link(source, target)
+        except OSError:
+            shutil.copyfile(source, target)
+
+
+def propagate_segment(predictor, segment_dir, points, size, device):
+    """Masks for one shot, as {local frame index: HxWx3 canvas}."""
+    canvases = {}
+    with torch.inference_mode(), torch.autocast(device, dtype=torch.bfloat16):
+        state = predictor.init_state(video_path=str(segment_dir))
+        for object_id, (x, y) in enumerate(points):
+            predictor.add_new_points_or_box(
+                inference_state=state,
+                frame_idx=0,
+                obj_id=object_id,
+                points=np.array([[x, y]], dtype=np.float32),
+                labels=np.array([1], dtype=np.int32),
+            )
+        # Painted lowest-id-last so the first prompted object wins overlaps;
+        # automatic prompts are largest-first, which puts big background
+        # surfaces underneath the smaller objects sitting on them.
+        for frame_idx, object_ids, mask_logits in predictor.propagate_in_video(state):
+            canvas = np.zeros((size[1], size[0], 3), dtype=np.uint8)
+            order = sorted(range(len(object_ids)), key=lambda i: object_ids[i], reverse=True)
+            for i in order:
+                mask = (mask_logits[i] > 0.0).cpu().numpy().squeeze()
+                canvas[mask] = PALETTE[object_ids[i] % len(PALETTE)]
+            canvases[frame_idx] = canvas
+        predictor.reset_state(state)
+    return canvases
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("video", type=Path, help="source footage")
     parser.add_argument("-o", "--out", type=Path, required=True, help="control video to write")
-    parser.add_argument("--frames", type=int, default=121, help="frame count; seg.json wants 121")
+    parser.add_argument("--frames", type=int, default=121, help="frame count; 0 for the whole source")
     parser.add_argument("--fps", type=float, default=30.0, help="output fps; seg.json wants 30")
     parser.add_argument("--start", type=float, default=0.0, help="seconds into the source to begin")
     parser.add_argument("--stride", type=int, help="frame step; defaults to source fps over target fps")
     parser.add_argument("--points", type=str, help='"x,y;x,y" in source pixels, one per object')
     parser.add_argument("--max-objects", type=int, default=8, help="cap for automatic prompting")
+    parser.add_argument("--cut-threshold", type=float, default=25.0, help="frame difference counted as a cut")
+    parser.add_argument("--min-shot", type=int, default=6, help="shots shorter than this are left unlabeled")
     parser.add_argument("--model", type=str, default="facebook/sam2.1-hiera-large")
     parser.add_argument("--keep-frames", action="store_true", help="keep the extracted JPEGs")
     args = parser.parse_args()
@@ -146,71 +216,88 @@ def main():
     try:
         count, size = extract_frames(args.video, frames_dir, args.frames, args.fps, args.start, args.stride)
         print(f"extracted {count} frames at {size[0]}x{size[1]}")
-        if count < args.frames:
-            print(f"WARNING: source has {count} frames, {args.frames} requested. The spec expects")
-            print(f"         exactly {args.frames}; a shorter control may be rejected or padded.")
 
-        if args.points:
-            points = parse_points(args.points)
-            print(f"prompting {len(points)} object(s) from --points")
-        else:
-            print(f"segmenting frame 0 automatically, keeping the {args.max_objects} largest...")
-            points = auto_prompts(frames_dir / "00000.jpg", args.max_objects, args.model, device)
-            print(f"found {len(points)} object(s)")
-        if len(points) > len(PALETTE):
-            raise SystemExit(f"{len(points)} objects exceeds the {len(PALETTE)}-colour palette")
+        boundaries = find_shot_boundaries(frames_dir, count, args.cut_threshold)
+        shots = [(boundaries[i], boundaries[i + 1] if i + 1 < len(boundaries) else count)
+                 for i in range(len(boundaries))]
+        shots = [(first, last) for first, last in shots if last - first >= args.min_shot]
+        print(f"{len(shots)} shot(s) over {count} frames "
+              f"(cut threshold {args.cut_threshold:g}, shots under {args.min_shot} frames dropped)")
 
+        fixed_points = parse_points(args.points) if args.points else None
+        if fixed_points and len(shots) > 1:
+            print("NOTE: --points is applied to every shot. Coordinates chosen for one shot")
+            print("      rarely land on anything meaningful in another.")
+
+        generator = None
+        if not fixed_points:
+            generator = SAM2AutomaticMaskGenerator.from_pretrained(args.model, device=device)
         predictor = SAM2VideoPredictor.from_pretrained(args.model, device=device)
-        with torch.inference_mode(), torch.autocast(device, dtype=torch.bfloat16):
-            state = predictor.init_state(video_path=str(frames_dir))
-            for object_id, (x, y) in enumerate(points):
-                predictor.add_new_points_or_box(
-                    inference_state=state,
-                    frame_idx=0,
-                    obj_id=object_id,
-                    points=np.array([[x, y]], dtype=np.float32),
-                    labels=np.array([1], dtype=np.int32),
-                )
 
-            # Painted lowest-id-last so the first prompted object wins overlaps;
-            # automatic prompts are largest-first, which puts big background
-            # surfaces underneath the smaller objects sitting on them.
-            canvases = {}
-            for frame_idx, object_ids, mask_logits in predictor.propagate_in_video(state):
-                canvas = np.zeros((size[1], size[0], 3), dtype=np.uint8)
-                order = sorted(range(len(object_ids)), key=lambda i: object_ids[i], reverse=True)
-                for i in order:
-                    mask = (mask_logits[i] > 0.0).cpu().numpy().squeeze()
-                    canvas[mask] = PALETTE[object_ids[i]]
-                canvases[frame_idx] = canvas
-
+        # Frames are written as each shot finishes rather than collected first:
+        # holding a minute of 1080p canvases costs about 15 GB, which the machine
+        # will not survive. Shots are in order and cover contiguous ranges, so
+        # the writer only needs blanks padded across the gaps between them.
+        blank = np.zeros((size[1], size[0], 3), dtype=np.uint8)
         args.out.parent.mkdir(parents=True, exist_ok=True)
         writer = imageio.get_writer(str(args.out), fps=args.fps, codec="libx264", quality=8)
-        for frame_idx in sorted(canvases):
-            writer.append_data(canvases[frame_idx])
-        writer.close()
+        coverage = []
+        written = 0
+        failed = 0
 
-        coverage = [float((canvases[idx].any(axis=2)).mean()) for idx in sorted(canvases)]
+        def emit(canvas):
+            nonlocal written
+            writer.append_data(canvas)
+            coverage.append(float(canvas.any(axis=2).mean()))
+            written += 1
+
+        try:
+            for number, (first, last) in enumerate(shots, start=1):
+                while written < first:
+                    emit(blank)
+                label = f"  shot {number}/{len(shots)} frames {first}-{last - 1}"
+                segment_dir = work_dir / f"shot{number:03d}"
+                canvases = {}
+                try:
+                    link_segment(frames_dir, segment_dir, first, last)
+                    points = fixed_points or auto_prompts(segment_dir / "00000.jpg", args.max_objects, generator)
+                    if points:
+                        canvases = propagate_segment(predictor, segment_dir, points, size, device)
+                    else:
+                        print(f"{label}: nothing found, left black")
+                except Exception as error:
+                    # One shot failing must not discard the other fifty-six. A
+                    # long job that dies at the end has produced nothing at all.
+                    failed += 1
+                    print(f"{label}: FAILED ({type(error).__name__}: {error}), left black")
+                    canvases = {}
+                finally:
+                    shutil.rmtree(segment_dir, ignore_errors=True)
+                    torch.cuda.empty_cache()
+
+                mark = len(coverage)
+                for local_index in range(last - first):
+                    emit(canvases.get(local_index, blank))
+                if canvases:
+                    shot_coverage = np.mean(coverage[mark:])
+                    print(f"{label}: {len(points)} object(s), {100 * shot_coverage:.1f}% labelled")
+
+            while written < count:
+                emit(blank)
+        finally:
+            writer.close()
+
         print(f"\nwrote {args.out}")
-        print(f"  {len(canvases)} frames at {args.fps} fps, {size[0]}x{size[1]}")
+        print(f"  {count} frames at {args.fps} fps, {size[0]}x{size[1]}, {count / args.fps:.1f}s")
         print(f"  labelled pixels: first {100 * coverage[0]:.1f}%, "
               f"mean {100 * np.mean(coverage):.1f}%, last {100 * coverage[-1]:.1f}% "
               f"(the shipped asset is ~59%)")
-
-        # A mean alone hides the characteristic failure: propagation holds for a
-        # while, then every object is lost at once and the rest of the clip is
-        # blank. Averaged with the good frames that still reads as a plausible
-        # number, so the collapse is reported by where it happens.
-        lost = next((i for i, value in enumerate(coverage) if value < 0.01 * coverage[0]), None)
-        if lost is not None:
-            seconds = args.start + lost / args.fps
-            print(f"\n  WARNING: tracking collapsed at frame {lost} (source {seconds:.2f}s);")
-            print(f"           {len(coverage) - lost} of {len(coverage)} frames are effectively blank.")
-            print( "           Usually a flash or dissolve, which scene-cut detection misses")
-            print( "           because the change is spread over several frames. Move --start")
-            print( "           past it, or shorten the clip to end before it.")
-        elif np.mean(coverage) < 0.05:
-            print("\n  WARNING: almost nothing was labelled. Try --points, or raise --max-objects.")
+        dead = sum(1 for value in coverage if value < 0.01)
+        if dead:
+            print(f"  {dead} frame(s) effectively blank, from shots too short to prompt "
+                  f"or where tracking found nothing")
+        if failed:
+            print(f"  {failed} shot(s) failed outright and were left black")
     finally:
         if args.keep_frames:
             print(f"  frames kept in {frames_dir}")

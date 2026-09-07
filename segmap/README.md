@@ -91,15 +91,25 @@ two seconds of action in slow motion, and the generated video inherits that.
 The default stride keeps wall-clock motion intact; `--stride 1` disables it if
 slow motion is what you want.
 
-**Cuts.** Propagation tracks objects forward from frame 0 and cannot survive a
-scene change — after a cut, the masks follow whatever now occupies those
-positions. Trailers and edited footage need `--start` chosen to land inside one
-continuous shot. Roughly four seconds of source at the default stride, so any
-shot shorter than that will contain a cut.
+**Cuts, and flashes especially.** Propagation tracks objects forward from frame 0
+and cannot survive a scene change. Trailers and edited footage need `--start`
+chosen to land inside one continuous shot — roughly four seconds of source at the
+default stride, so any shorter shot contains a cut.
 
-The script prints the share of labelled pixels against the reference's ~59%.
-Much lower means automatic prompting missed the salient objects, and `--points`
-is the fix.
+Finding those shots with ffmpeg's `scene` filter is not sufficient. A white flash
+or dissolve spreads its change over several frames, so each individual delta
+stays under the threshold and no cut is reported, while SAM 2 still loses every
+object at once. That failure was observed on a shot the detector called clean for
+ten seconds: masks held at ~25% coverage for 72 frames and went to exactly zero
+at the flash. Brightness jumps find them where scene detection does not:
+
+```bash
+ffmpeg -v error -i source.mp4 -filter:v "select='gt(scene,0.3)',showinfo" -f null -
+```
+
+The script reports coverage for the **first, mean and last** frame, and names the
+frame where tracking collapsed. A mean alone hides this: half a good clip and
+half a blank one still averages to a plausible-looking number.
 
 ## Feeding it back into transfer
 
