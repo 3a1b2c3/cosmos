@@ -70,7 +70,7 @@ if [ "${SKIP_INSTALL:-0}" != "1" ]; then
   uv venv "$COSMOS3_DIFFUSERS_VENV" --python 3.13 --seed --managed-python --allow-existing
   # shellcheck disable=SC1091
   source "$COSMOS3_DIFFUSERS_VENV/bin/activate"
-  uv pip install --torch-backend="$TORCH_BACKEND" "diffusers @ git+https://github.com/huggingface/diffusers.git" accelerate av cosmos_guardrail huggingface_hub imageio imageio-ffmpeg ipykernel jupyter torch torchvision transformers
+  uv pip install --torch-backend="$TORCH_BACKEND" "diffusers @ git+https://github.com/huggingface/diffusers.git" accelerate av cosmos_guardrail huggingface_hub imageio imageio-ffmpeg ipykernel jupyter papermill torch torchvision transformers
   python -m ipykernel install --user --name "$KERNEL_NAME" --display-name "Cosmos3 Diffusers (Python 3.13)"
 else
   echo "[1/3] Reusing the existing environment (SKIP_INSTALL=1)."
@@ -118,21 +118,40 @@ first_super = next(
     ),
     len(cells),
 )
-notebook["cells"] = cells[:first_super]
+cells = cells[:first_super]
+
+# The notebook builds its own environment in a %%bash cell. This script has
+# already done that, and re-resolving the same packages costs minutes of
+# silence on every run, so the cell is dropped rather than repeated.
+kept = []
+for cell in cells:
+    source = "".join(cell["source"])
+    if cell["cell_type"] == "code" and "uv pip install" in source and "ipykernel install" in source:
+        continue
+    kept.append(cell)
+dropped = len(cells) - len(kept)
+notebook["cells"] = kept
 with open(target_path, "w", encoding="utf-8") as handle:
     json.dump(notebook, handle, indent=1)
-print(f"  Nano-only copy: {len(notebook['cells'])} of {len(cells)} cells")
+print(f"  Nano-only copy: {len(kept)} cells, {dropped} install cell(s) dropped")
 FILTER
 fi
 
 echo "[3/3] Executing the notebook..."
-# The kernel name has to be forced: the notebook's own kernelspec is plain
-# python3, so without this every cell runs outside the venv and its guard cell
-# raises. timeout=-1 because a single clip takes minutes and the default would
-# kill it mid-diffusion.
-# --inplace keeps outputs in the notebook; the videos are written to disk
-# regardless.
-jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.kernel_name="$KERNEL_NAME" --ExecutePreprocessor.timeout=-1 "$RUN_NOTEBOOK"
+# The kernel has to be named explicitly either way: the notebook's own
+# kernelspec is plain python3, so without it every cell runs outside the venv
+# and the notebook's guard cell raises.
+#
+# papermill is preferred because it streams each cell's output as it is
+# produced. nbconvert buffers until a cell returns, so a diffusion step that
+# takes minutes prints nothing and cannot be told apart from a hang.
+EXECUTED="${RUN_NOTEBOOK%.ipynb}.executed.ipynb"
+if command -v papermill >/dev/null 2>&1; then
+  papermill "$RUN_NOTEBOOK" "$EXECUTED" --kernel "$KERNEL_NAME" --log-output --log-level INFO
+else
+  echo "  papermill not found; falling back to nbconvert (no live output)."
+  jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.kernel_name="$KERNEL_NAME" --ExecutePreprocessor.timeout=-1 "$RUN_NOTEBOOK"
+fi
 
 echo
 echo "=========================================="

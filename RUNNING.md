@@ -40,10 +40,33 @@ the notebook with that kernel already selected.
 
 ```bash
 sudo apt-get install -y libxcb1 libgl1 libglib2.0-0
-export HF_HOME=/path/to/large/cache
-uvx hf@latest auth login
+export HF_TOKEN=<token>
+uvx hf@latest download nvidia/Cosmos3-Nano    # 1.23 GB, resumable
 bash run_transfer_headless.sh
 ```
+
+Run it under `tmux` or `nohup`: the job outlives no SSH session on its own, and
+losing the connection kills it.
+
+```bash
+tmux new -s cosmos      # Ctrl-B D to detach, tmux attach -t cosmos to return
+```
+
+### Hugging Face access
+
+The weights are not in this repository, so a token is required before anything
+runs. `HF_TOKEN` in the environment is preferred over `hf auth login`, which
+writes a token file to disk.
+
+Pull the checkpoint separately rather than letting the notebook do it. It is
+resumable, it reports progress, and it separates "the download failed" from
+"generation failed" — one long command that dies tells you neither.
+
+Cosmos3-Nano is **1.23 GB across 68 files**, not the tens of gigabytes the
+model-family table implies: the `64B / 16B / 4B` figures there are three
+different models in adjacent columns. Downloads land in `$HF_HOME` when set and
+`~/.cache/huggingface` otherwise — the run has to use whichever the download
+used, or it fetches again.
 
 | Variable | Default | Effect |
 | --- | --- | --- |
@@ -57,6 +80,37 @@ Nano mode runs a filtered copy of the notebook, so the checked-in one keeps its
 Super cells and is not rewritten by `--inplace`.
 
 Clips land in `outputs/notebooks/diffusers/<model>/<spec>/vision.mp4`.
+
+### Watching it run
+
+The script executes through `papermill`, which streams each cell's output as it
+is produced. `nbconvert` — the fallback when papermill is missing — buffers
+until a cell returns, so a diffusion step that takes minutes prints nothing and
+cannot be told apart from a hang.
+
+Either way, from a second pane:
+
+```bash
+nvidia-smi                                           # busy GPU means it is generating
+watch -n5 'find ~/cosmos/outputs -name vision.mp4'   # clips as they land
+```
+
+The output directory is only created when the first clip is written, so it
+staying empty for the first few minutes is expected.
+
+### Telling work from a hang
+
+A silent run is normal for the first several minutes. In order, the causes:
+
+| Check | Meaning |
+| --- | --- |
+| `ps aux \| grep -E "uv\|pip" \| grep -v grep` | The notebook re-runs its own install cell on every execution, even when the environment already exists. Minutes of silence, nothing wrong. Note this also matches `pipewire`, the audio daemon — ignore those. |
+| `nvidia-smi` | A busy GPU means it is generating. |
+| `du -sh ~/.cache/huggingface` | Growing means something is still downloading — `cosmos_guardrail` fetches its own model when the pipeline is constructed, before any generation. |
+| `ps aux \| grep ipykernel \| grep -v grep` | No kernel process means it died and the runner is wedged. Kill and restart. |
+
+Arrow keys echoing as `^[[A` in the terminal is another sign the foreground
+process is busy rather than waiting on input.
 
 ### To run it interactively instead
 
