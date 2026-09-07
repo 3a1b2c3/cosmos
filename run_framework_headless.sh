@@ -9,6 +9,7 @@
 #
 #   bash run_framework_headless.sh                 # Nano only
 #   MODELS=all bash run_framework_headless.sh      # Nano and Super (multi-GPU)
+#   GUARDRAILS=1 bash run_framework_headless.sh    # re-enable the guardrail
 #   KEEP_APT=1 bash run_framework_headless.sh      # keep the apt-get cell (root)
 #   DRIVER_ONLY=1 bash run_framework_headless.sh   # build the driver env and stop
 #
@@ -25,6 +26,13 @@ KERNEL_NAME="cosmos3-driver"
 # The notebook runs Nano, then Super, then a multi-control Nano section. Super
 # is 32B and multi-GPU, so it is dropped unless asked for.
 MODELS="${MODELS:-nano}"
+# Inference defaults to --guardrails, which downloads nvidia/Cosmos-Guardrail1.
+# That repository is gated separately from nvidia/Cosmos-1.0-Guardrail, and the
+# framework fetches it for every control -- including edge and depth, which the
+# Diffusers path runs without a guardrail at all. Without access, the first
+# generation cell fails before producing anything, so guardrails are off by
+# default here and GUARDRAILS=1 turns them back on.
+GUARDRAILS="${GUARDRAILS:-0}"
 
 # The notebook's §2 cell points HF_HOME at a cache under the cookbook directory.
 # Left alone that re-downloads Cosmos3-Nano and the Guardrail even when both are
@@ -90,7 +98,7 @@ KEEP_APT="${KEEP_APT:-0}"
 if [ "$(id -u)" = "0" ]; then
   KEEP_APT=1
 fi
-KEEP_APT="$KEEP_APT" MODELS="$MODELS" python - "$NOTEBOOK" "$RUN_NOTEBOOK" <<'FILTER'
+KEEP_APT="$KEEP_APT" MODELS="$MODELS" GUARDRAILS="$GUARDRAILS" python - "$NOTEBOOK" "$RUN_NOTEBOOK" <<'FILTER'
 import json
 import os
 import re
@@ -99,6 +107,7 @@ import sys
 source_path, target_path = sys.argv[1], sys.argv[2]
 keep_apt = os.environ["KEEP_APT"] == "1"
 nano_only = os.environ["MODELS"] == "nano"
+guardrails = os.environ["GUARDRAILS"] == "1"
 
 with open(source_path, encoding="utf-8") as handle:
     notebook = json.load(handle)
@@ -109,7 +118,7 @@ with open(source_path, encoding="utf-8") as handle:
 # what keeps that section when Super is dropped. Truncating at the first Super
 # heading would lose it.
 super_heading = re.compile(r"^##\s+(Super Inference|\d+\.\s*Super:)")
-kept, dropped = [], []
+kept, dropped, patched = [], [], []
 in_super = False
 
 for cell in notebook["cells"]:
@@ -129,6 +138,14 @@ for cell in notebook["cells"]:
         if "login --token" in source:
             dropped.append("hf-login")
             continue
+        # Every inference cell hardcodes the same continuation, so the flag is
+        # inserted immediately after the module rather than appended: the
+        # trailing argument is "--seed 2026" with no backslash after it.
+        needle = ".scripts.inference \\\n"
+        if not guardrails and needle in source:
+            source = source.replace(needle, needle + "  --no-guardrails \\\n")
+            cell = dict(cell, source=source.splitlines(keepends=True))
+            patched.append(cell)
     kept.append(cell)
 
 notebook["cells"] = kept
@@ -137,6 +154,10 @@ with open(target_path, "w", encoding="utf-8") as handle:
 
 summary = ", ".join(f"{reason} x{dropped.count(reason)}" for reason in sorted(set(dropped))) or "none"
 print(f"  {len(kept)} cells kept, dropped: {summary}")
+if not guardrails:
+    # A count of zero here means the command shape changed upstream and the
+    # run would fail on the gated download again, so it is worth stating.
+    print(f"  --no-guardrails added to {len(patched)} inference cell(s)")
 FILTER
 if [ "$KEEP_APT" != "1" ]; then
   echo "      The apt-get cell was dropped. If a cell fails on libxcb/libGL, run:"

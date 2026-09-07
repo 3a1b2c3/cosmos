@@ -17,7 +17,8 @@ Cosmos" means building an environment that can run those.
 | --- | --- |
 | [`setup_diffusers.sh`](./setup_diffusers.sh) | Build a venv for the Diffusers path, torch from an explicit CUDA index. |
 | [`run_docker.sh`](./run_docker.sh) | Shell in the NGC container, repo and HF cache mounted. |
-| [`run_transfer_headless.sh`](./run_transfer_headless.sh) | Run the video-transfer notebook with no browser. |
+| [`run_transfer_headless.sh`](./run_transfer_headless.sh) | Run the **Diffusers** video-transfer notebook with no browser. |
+| [`run_framework_headless.sh`](./run_framework_headless.sh) | Run the **Cosmos Framework** video-transfer notebook with no browser. |
 
 ## Which CUDA build
 
@@ -104,13 +105,65 @@ So edge and depth skip the Guardrail entirely, and blur, segmentation and WSM
 construct it — which is why those three need the gated repository and the other
 two do not.
 
+## The framework path (the other transfer notebook)
+
+`run_video_transfer_with_cosmos_framework.ipynb` is a separate path that shares
+nothing with the Diffusers one. It clones `NVIDIA/cosmos-framework`, builds a
+venv with `uv sync --all-extras`, and every inference cell shells out to
+`$COSMOS3_REPO/.venv/bin/python -m cosmos_framework.scripts.inference`.
+
+Because the work happens in `%%bash`, the notebook kernel is only a driver —
+it needs `ipykernel` and nothing else. `run_framework_headless.sh` builds that
+small driver venv rather than reusing the Diffusers one, which this path never
+touches.
+
+```bash
+export HF_TOKEN=<token>
+bash run_framework_headless.sh
+```
+
+| Variable | Default | Effect |
+| --- | --- | --- |
+| `MODELS` | `nano` | `all` also runs the Super sections, which are 32B and multi-GPU. |
+| `GUARDRAILS` | `0` | `1` restores the notebook's default and needs the gated repo below. |
+| `KEEP_APT` | `0`, or `1` as root | Keep the `apt-get` cell. |
+| `COSMOS3_HF_HOME` | `~/.cache/huggingface` | Overrides the notebook's own cache location. |
+| `DRIVER_ONLY` | `0` | Build the driver venv and stop. |
+| `DRIVER_VENV` | `./.venv-notebook-driver` | Where the driver venv goes. |
+
+Four things in this notebook need handling before it runs unattended, and the
+script does all four:
+
+- **§4 runs `apt-get install` without sudo.** Under `set -euo pipefail` that
+  aborts the cell for any non-root user, and papermill stops there. The cell is
+  dropped unless the run is root — in a container it is the right thing to run,
+  so `KEEP_APT` becomes `1` automatically.
+- **§2 repoints `HF_HOME`** at a cache under the cookbook directory, so a run
+  re-downloads Cosmos3-Nano and the Guardrail even when both are already in the
+  user cache. `COSMOS3_HF_HOME` overrides it back.
+- **§6.5 runs `huggingface-cli login --token`**, writing the token to disk.
+  Dropped: `HF_TOKEN` is already in the environment and the framework reads it
+  there. For the same reason, leave §2's `HF_TOKEN` field empty — filling it in
+  saves the token into the `.ipynb`.
+- **The Super sections would otherwise run.** The heading is `## Super
+  Inference`, not the `## Super:` the Diffusers notebook uses, so a filter
+  written for that one matches nothing here.
+
+That last one is why the filter tracks which `## ` section each cell belongs to
+instead of truncating at the first Super heading: §19, the multi-control **Nano**
+section, comes *after* the Super sections and has to survive them. Nano mode
+keeps 44 of 67 cells, including §19; `MODELS=all` keeps 66.
+
+Cell §2 selects `cu130-train` on aarch64 and `cu128-train` otherwise, so a GB300
+gets the right dependency group with no intervention.
+
 ### Keeping the scripts in sync
 
 The scripts are edited on Windows and run on the DGX, so copy them across after
 a change:
 
 ```bash
-scp run_transfer_headless.sh setup_diffusers.sh RUNNING.md <user>@<dgx>:~/cosmos/
+scp run_transfer_headless.sh run_framework_headless.sh setup_diffusers.sh RUNNING.md <user>@<dgx>:~/cosmos/
 ```
 
 A run that behaves like an older version usually means this step was missed.
