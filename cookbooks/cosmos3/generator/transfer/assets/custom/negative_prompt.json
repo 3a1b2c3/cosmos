@@ -6,7 +6,7 @@
       "position": "Drifting away from the structure given by the control signal, or duplicated elsewhere in frame."
     }
   ],
-  "background_setting": "Flat repeated textures, buildings with seams and tiling artifacts, asphalt as a uniform grey plane without aggregate or wear, street furniture fused into the road surface, geometry that mutates between frames.",
+  "background_setting": "Flat repeated textures, buildings with seams and tiling artifacts, asphalt as a uniform grey plane without aggregate or wear, street furniture fused into the road surface, geometry that mutates between frames. Defocused background regions rendered with sharp high-frequency detail instead of smooth bokeh, distant scrub, rock and foliage breaking into fine speckle and stippled grain, out-of-focus areas crawling and reshuffling their texture between frames rather than staying soft and stable.",
   "lighting": {
     "conditions": "Harsh, flat, directionless illumination with no falloff",
     "direction": "Inconsistent between subjects and background, shifting frame to frame",

@@ -127,8 +127,11 @@ if [ "$GUARDRAILS" = "1" ]; then
   GUARD_FLAG="--guardrails"
 fi
 
+# EXTRA_ARGS is passed through verbatim, for entrypoint flags this script does
+# not model -- disabling the diffusion cache, for instance, which trades speed
+# for fidelity and is on by default.
 cd "$REPO"
-.venv/bin/python -m cosmos_framework.scripts.inference $GUARD_FLAG --parallelism-preset=latency -i "$RUN_SPEC" -o "$OUT" --checkpoint-path "$MODEL" --seed "$SEED"
+.venv/bin/python -m cosmos_framework.scripts.inference $GUARD_FLAG --parallelism-preset=latency -i "$RUN_SPEC" -o "$OUT" --checkpoint-path "$MODEL" --seed "$SEED" ${EXTRA_ARGS:-}
 
 echo
 echo "=========================================="
