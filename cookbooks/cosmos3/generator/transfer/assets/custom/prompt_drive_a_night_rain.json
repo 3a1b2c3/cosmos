@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A yellow convertible taxi cab with its roof down, travelling at speed along a suburban boulevard with two passengers aboard.",
+      "appearance_details": "Yellow lacquer darkened and mirror-wet, the body sheeted in running water carrying streaked reflections of shopfront neon, beads racing backward across the bonnet, chrome catching hard coloured highlights, an illuminated roof sign flaring against the dark, tyres throwing fine spray from standing water.",
+      "position": "Centre frame in profile, travelling from left to right, filling the lower two thirds of the image"
+    },
+    {
+      "description": "Two passengers riding in the open car, one in the rear seat with arms raised, one seated beside the driver.",
+      "appearance_details": "The woman in the rear seat wears a black satin slip dress under an oversized transparent rain poncho beaded with water, gold hoop earrings catching passing signage, hair wet and swept back. Her companion is in a soaked dark denim jacket. Coloured light shifts across them as each sign passes.",
+      "position": "In the open cabin at the centre of the vehicle, upper middle of the frame"
+    }
+  ],
+  "background_setting": "A city boulevard at night after heavy rain, the asphalt a black mirror carrying long vertical smears of red, green and cyan from shopfront signage and traffic lights. Standing water pools along the gutter and wet pavement reflects the storefronts. A low wall runs behind, its face darkened by rain. Buildings rise into unlit darkness above the sign line.",
+  "lighting": {
+    "conditions": "Night after heavy rain, lit entirely by artificial sources",
+    "direction": "Multiple hard sources at low and mid height from both sides, no sky light",
+    "shadows": "Multiple overlapping coloured shadows, hard-edged and shifting as the car passes each source, with deep black shadow beneath the vehicle",
+    "illumination_effect": "High contrast saturated light from neon and sodium sources raking across wet paintwork, specular streaks running the length of the body, every source doubled in the mirrored road surface"
+  },
+  "aesthetics": {
+    "composition": "Medium-wide profile framing that holds the car centrally as it travels, the boundary wall and palms forming a horizontal band across the upper third and the roadway occupying the lower third, with the vehicle bridging the two",
+    "color_scheme": "Deep blacks and wet asphalt against saturated neon magenta, cyan, red and amber, the yellow bodywork reading warm and desaturated under mixed colour temperature",
+    "visual_texture": "Rain streaks running across paintwork, water beading and shearing off in the airflow, sharp specular detail in wet chrome, fine spray suspended behind the wheels, mirror reflections broken by ripples"
+  },
+  "cinematography": {
+    "camera_motion": "Tracking laterally alongside the vehicle at matching speed, holding it steady in frame while the background streaks past",
+    "framing": "Medium-wide shot",
+    "camera_angle": "Slightly elevated, a little above the roofline, looking gently down at the car in profile",
+    "depth_of_field": "Moderate, the vehicle sharp with the background softened by distance and motion",
+    "focus": "Locked on the moving car throughout",
+    "lens_focal_length": "Medium telephoto, compressing the background behind the vehicle"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera at high ISO from a tracking vehicle",
+  "artistic_style": "Photorealistic night automotive cinematography, high contrast and neon-lit",
+  "context": "A tracking shot of a convertible taxi driving through a rain-soaked city boulevard at night",
+  "actions": [
+    {
+      "time": "0:00-0:01",
+      "description": "The taxi travels left to right across the wet road, the camera holding pace as neon reflections sweep along the flank and spray lifts from the tyres."
+    },
+    {
+      "time": "0:01-0:02",
+      "description": "The car continues through standing water, coloured light raking across the bodywork and doubling in the mirrored asphalt below."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:02",
+      "description": "A tracking shot of a convertible taxi driving through a rain-soaked city boulevard at night",
+      "key_changes": "Specular highlights travel along the bodywork as the car moves; the background wall, hedging and palms sweep past in motion blur while the vehicle stays locked in frame."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 a yellow taxi moves left to right along a rain-soaked boulevard at night, the camera tracking alongside as neon reflections streak across its wet flank. By 0:01 it passes through standing water, spray lifting behind the wheels while the woman's gold earrings catch a passing sign. Through to 0:02 the car holds frame as shopfront signage sweeps past behind, each source smeared long into the black road surface.",
+  "audio_description": "Engine note over the hiss of tyres displacing standing water, rain drumming on bodywork, wind across the open cabin, and the wet acoustics of a night street. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "2s",
+  "fps": 30
+}

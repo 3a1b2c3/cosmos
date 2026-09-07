@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A yellow convertible taxi cab with its roof down, travelling at speed along a suburban boulevard with two passengers aboard.",
+      "appearance_details": "Yellow paintwork bleached and chalky from sun exposure, a fine pale dust film across the lower panels and rear, clear-coat crazed on the horizontal surfaces, chrome hot and glaring under direct sun, an illuminated roof sign washed out to near-invisibility, tyres coated in pale dust that lifts in a plume behind.",
+      "position": "Centre frame in profile, travelling from left to right, filling the lower two thirds of the image"
+    },
+    {
+      "description": "Two passengers riding in the open car, one in the rear seat with arms raised, one seated beside the driver.",
+      "appearance_details": "The woman in the rear seat wears a white linen shirt knotted at the waist over high-waisted denim, oversized tortoiseshell sunglasses and a wide-brimmed straw hat held against the wind, a silk scarf tied at her throat streaming behind. Her companion is in a faded short-sleeved shirt. Both squint against the vertical glare.",
+      "position": "In the open cabin at the centre of the vehicle, upper middle of the frame"
+    }
+  ],
+  "background_setting": "An open desert highway running dead straight, flanked by cracked hardpan, scattered creosote scrub and low rock outcrops. The asphalt is sun-bleached grey with faded centre markings and long tar seams. A dust plume trails behind the vehicle. Distant mesas shimmer in heat haze under a hard, almost white sky.",
+  "lighting": {
+    "conditions": "Harsh midday desert sun under a cloudless sky",
+    "direction": "Almost directly overhead, marginally forward of vertical",
+    "shadows": "Very short, hard-edged and nearly black, pooled tightly beneath the car and along the underside of the body",
+    "illumination_effect": "Extreme contrast with blown highlights on upper surfaces and dense shadow beneath; heat shimmer distorting the road at distance, airborne dust catching light as a pale haze"
+  },
+  "aesthetics": {
+    "composition": "Medium-wide profile framing that holds the car centrally as it travels, the boundary wall and palms forming a horizontal band across the upper third and the roadway occupying the lower third, with the vehicle bridging the two",
+    "color_scheme": "Bleached sand, pale ochre and washed grey asphalt under an almost white sky, the yellow bodywork tending toward the desert palette rather than contrasting with it",
+    "visual_texture": "Dust film and paint chalking on the bodywork, cracked hardpan and asphalt aggregate, airborne dust catching light, heat shimmer distorting distant detail"
+  },
+  "cinematography": {
+    "camera_motion": "Tracking laterally alongside the vehicle at matching speed, holding it steady in frame while the background streaks past",
+    "framing": "Medium-wide shot",
+    "camera_angle": "Slightly elevated, a little above the roofline, looking gently down at the car in profile",
+    "depth_of_field": "Moderate, the vehicle sharp with the background softened by distance and motion",
+    "focus": "Locked on the moving car throughout",
+    "lens_focal_length": "Medium telephoto, compressing the background behind the vehicle"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera from a tracking vehicle in desert conditions",
+  "artistic_style": "Photorealistic automotive cinematography, high-key and sun-bleached",
+  "context": "A tracking shot of a convertible taxi driving along an open desert highway at midday",
+  "actions": [
+    {
+      "time": "0:00-0:01",
+      "description": "The taxi travels left to right along the empty highway, the camera holding pace as a dust plume lifts behind and heat shimmer distorts the road ahead."
+    },
+    {
+      "time": "0:01-0:02",
+      "description": "The car continues across the frame, hard overhead sun glaring off the chrome, scrub and rock passing behind in the dry air."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:02",
+      "description": "A tracking shot of a convertible taxi driving along an open desert highway at midday",
+      "key_changes": "Specular highlights travel along the bodywork as the car moves; the background wall, hedging and palms sweep past in motion blur while the vehicle stays locked in frame."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 a dust-covered yellow taxi moves left to right along an empty desert highway under vertical midday sun, the camera tracking alongside. By 0:01 a pale dust plume lifts behind the rear wheels and the woman's silk scarf streams back from her throat. Through to 0:02 the car holds frame, hard light glaring off chrome and bleached paintwork, while scrub and distant mesas sweep past in the dry haze.",
+  "audio_description": "A steady engine note carrying in dry open air, tyres on hot coarse asphalt, wind rushing across the open cabin, and the emptiness of a road with no other traffic. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "2s",
+  "fps": 30
+}
