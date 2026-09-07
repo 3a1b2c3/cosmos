@@ -34,7 +34,9 @@ rem rejected for the mismatch.
 rem huggingface_hub is listed explicitly: sam2 imports it inside from_pretrained
 rem but does not declare it as a dependency, so the failure only appears at the
 rem first checkpoint download rather than at install time.
-"!UV_EXE!" pip install --python "%VENV%\Scripts\python.exe" "git+https://github.com/facebookresearch/sam2.git" huggingface_hub hydra-core imageio imageio-ffmpeg iopath numpy opencv-python
+rem transformers carries SegFormer, used by make_seg_control_semantic.py for the
+rem Cityscapes-class control videos. SAM 2 does not need it.
+"!UV_EXE!" pip install --python "%VENV%\Scripts\python.exe" "git+https://github.com/facebookresearch/sam2.git" huggingface_hub hydra-core imageio imageio-ffmpeg iopath numpy opencv-python transformers
 if errorlevel 1 exit /b 1
 
 echo === Verifying ===

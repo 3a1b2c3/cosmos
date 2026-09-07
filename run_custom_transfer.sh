@@ -88,20 +88,28 @@ if command -v ffprobe >/dev/null 2>&1; then
 fi
 
 RUN_SPEC="$SPEC"
-if [ -n "${FRAMES:-}" ]; then
+if [ -n "${FRAMES:-}" ] || [ -n "${STEPS:-}" ]; then
   # Written beside the original rather than in place, so the checked-in spec
-  # keeps its own frame count.
+  # keeps its own values.
   RUN_SPEC="${SPEC%.json}.run.json"
-  "$REPO/.venv/bin/python" - "$SPEC" "$RUN_SPEC" "$FRAMES" <<'PY'
+  FRAMES="${FRAMES:-}" STEPS="${STEPS:-}" "$REPO/.venv/bin/python" - "$SPEC" "$RUN_SPEC" <<'PY'
 import json
+import os
 import sys
 
-source, target, frames = sys.argv[1], sys.argv[2], int(sys.argv[3])
+source, target = sys.argv[1], sys.argv[2]
 spec = json.loads(open(source, encoding="utf-8").read())
-spec["num_frames"] = frames
+if os.environ["FRAMES"]:
+    spec["num_frames"] = int(os.environ["FRAMES"])
+    print(f"  num_frames overridden to {spec['num_frames']}")
+if os.environ["STEPS"]:
+    # Halving num_steps roughly halves sampling time. UniPC holds up better
+    # than most samplers at low step counts, but this is a quality trade, not
+    # a free one -- fine detail and temporal stability go first.
+    spec["num_steps"] = int(os.environ["STEPS"])
+    print(f"  num_steps overridden to {spec['num_steps']}")
 with open(target, "w", encoding="utf-8") as handle:
     json.dump(spec, handle, indent=2)
-print(f"  num_frames overridden to {frames}")
 PY
 fi
 

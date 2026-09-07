@@ -18,7 +18,7 @@ if not defined OUT set "OUT=%TRANSFER%\assets\custom\control_seg.mp4"
 rem 0 means the whole source. The spec's own num_frames has to match whatever
 rem this produces, so changing one without the other desynchronises them.
 if not defined FRAMES set "FRAMES=0"
-if not defined MAXOBJ set "MAXOBJ=8"
+if not defined MAXOBJ set "MAXOBJ=14"
 
 if not exist "%PY%" (
   echo ERROR: %PY% is missing. Run setup.bat first.

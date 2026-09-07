@@ -26,7 +26,7 @@
     "focus": "Soft on the subject and sharp on empty background",
     "lens_focal_length": "Distortion that varies frame to frame"
   },
-  "style_medium": "Heavily compressed video with blocking, banding and mosquito noise",
+  "style_medium": "Heavily compressed video with blocking, banding and mosquito noise. Flat untextured slabs of solid colour with straight vertical edges, regions of the frame filled with uniform grey or yellow fill instead of depicted objects, hard geometric boundaries cutting across the scene where no surface exists.",
   "artistic_style": "Video-game render, CGI with obvious synthetic shading, cartoon or illustration",
   "context": "A synthetic clip that reads as rendered rather than photographed",
   "actions": [

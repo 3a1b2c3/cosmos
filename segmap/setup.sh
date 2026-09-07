@@ -58,7 +58,9 @@ echo "[3/4] Installing SAM 2 and the media dependencies..."
 # huggingface_hub is listed explicitly: sam2 imports it inside from_pretrained
 # but does not declare it as a dependency, so the failure only appears at the
 # first checkpoint download rather than at install time.
-SAM2_BUILD_CUDA=0 uv pip install "git+https://github.com/facebookresearch/sam2.git" huggingface_hub hydra-core imageio imageio-ffmpeg iopath numpy opencv-python-headless
+# transformers carries SegFormer, used by make_seg_control_semantic.py for the
+# Cityscapes-class control videos. SAM 2 does not need it.
+SAM2_BUILD_CUDA=0 uv pip install "git+https://github.com/facebookresearch/sam2.git" huggingface_hub hydra-core imageio imageio-ffmpeg iopath numpy opencv-python-headless transformers
 
 echo "[4/4] Verifying..."
 python -c "import torch, sam2; print(f'torch {torch.__version__} cuda={torch.cuda.is_available()} built_for={torch.version.cuda}'); print('sam2 ok'); raise SystemExit(0 if torch.cuda.is_available() else 'torch cannot see the GPU: it resolved to a CPU build, or the driver predates it')"

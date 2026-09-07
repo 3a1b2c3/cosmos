@@ -18,7 +18,7 @@ OUT="${OUT:-$TRANSFER/assets/custom/control_seg.mp4}"
 # 0 means the whole source. The spec's own num_frames has to match whatever this
 # produces, so changing one without the other desynchronises them.
 FRAMES="${FRAMES:-0}"
-MAXOBJ="${MAXOBJ:-8}"
+MAXOBJ="${MAXOBJ:-14}"
 
 if [ ! -x "$PY" ]; then
   echo "ERROR: $PY is missing. Run setup.sh first." >&2
