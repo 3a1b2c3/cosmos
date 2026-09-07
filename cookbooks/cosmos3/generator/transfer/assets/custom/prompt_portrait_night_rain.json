@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A woman seated as a passenger in an open-top convertible car, the roof down.",
+      "appearance_details": "A woman seated in the open car wearing a black satin slip dress under an oversized clear rain poncho beaded with water, gold hoop earrings catching each passing light, hair wet and swept back from her face, water tracking down her bare shoulder. Coloured light shifts across her as signage passes.",
+      "position": "Slightly off centre in the upper half of the frame, seen from the side at eye level"
+    },
+    {
+      "description": "The open-top car she is riding in, seen in part behind and around her.",
+      "appearance_details": "Red lacquer darkened and mirror-wet, water sheeting across the door and rear quarter carrying streaked reflections of passing signage, beads racing back along the window line, chrome catching hard coloured highlights, cream leather soaked dark and glistening.",
+      "position": "Framing the subject, its door line and windscreen surround crossing the lower third of the image"
+    }
+  ],
+  "background_setting": "A city street at night after heavy rain, shopfront neon and traffic signals reduced to soft coloured orbs in the defocused background, wet asphalt doubling every light source below. Dark building masses rise unlit above the sign line.",
+  "lighting": {
+    "conditions": "Night after heavy rain, lit entirely by artificial sources",
+    "direction": "Multiple hard coloured sources from both sides at low and mid height, shifting as the car moves",
+    "shadows": "Hard-edged and multiple, overlapping in different colours across the face and shoulders, deep black where nothing reaches",
+    "illumination_effect": "High contrast saturated neon and sodium light raking across wet skin and satin, specular glints in water beads and jewellery, every source doubled in the wet paintwork"
+  },
+  "aesthetics": {
+    "composition": "Medium close-up holding the seated passenger slightly off centre in the upper half of the frame, the car's door line and windscreen frame running across the lower third, background compressed and defocused behind",
+    "color_scheme": "Deep blacks against saturated neon magenta, cyan and amber, the red bodywork reading dark and wine-like under mixed colour temperature, skin caught in shifting coloured light",
+    "visual_texture": "Water beading and tracking across skin and satin, wet hair strands separating, sharp specular detail in jewellery and chrome, rain streaks on paintwork, defocused light orbs behind"
+  },
+  "cinematography": {
+    "camera_motion": "Slow drift, the camera holding the subject steady in frame with the vehicle nearly stationary relative to it",
+    "framing": "Medium close-up",
+    "camera_angle": "Eye-level, slightly to the side of the subject",
+    "depth_of_field": "Shallow, the subject sharp and the background falling away into soft bokeh",
+    "focus": "Locked on the seated passenger",
+    "lens_focal_length": "Short telephoto, flattering the face and compressing the background"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera at high ISO",
+  "artistic_style": "Photorealistic night portrait cinematography, high contrast and neon-lit",
+  "context": "A portrait of a passenger riding in an open-top car through a rain-soaked city at night",
+  "actions": [
+    {
+      "time": "0:00-0:03",
+      "description": "The passenger sits in the rain-soaked open car, neon light sweeping across her face as signage passes and water tracks down her shoulder."
+    },
+    {
+      "time": "0:03-0:06",
+      "description": "She tilts her head, gold earrings flaring under a passing sign, coloured reflections running along the wet red bodywork."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:06",
+      "description": "A portrait of a passenger riding in an open-top car through a rain-soaked city at night",
+      "key_changes": "Light shifts across the subject's face and the bodywork as the car moves; the defocused background drifts behind without ever resolving into detail."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 a woman sits in an open-top red car on a rain-soaked city street at night, neon reflections streaking across the wet paintwork beside her. By 0:03 coloured light sweeps over her face as signage passes and water tracks down her bare shoulder. Through to 0:06 the camera holds on her, her gold earrings catching each passing source while defocused neon orbs drift behind.",
+  "audio_description": "Rain drumming on bodywork over a low engine note, tyres hissing through standing water, and the wet acoustics of a night street. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "6s",
+  "fps": 30
+}

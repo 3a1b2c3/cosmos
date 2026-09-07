@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A woman seated as a passenger in an open-top convertible car, the roof down.",
+      "appearance_details": "A woman seated in the open car wearing a white linen shirt knotted at the waist, oversized tortoiseshell sunglasses and a wide-brimmed straw hat held down against the wind, a silk scarf tied at her throat streaming behind. Her skin is bright under the vertical sun, hair pulled straight back in the hot dry air.",
+      "position": "Slightly off centre in the upper half of the frame, seen from the side at eye level"
+    },
+    {
+      "description": "The open-top car she is riding in, seen in part behind and around her.",
+      "appearance_details": "Red paintwork bleached and chalky from sun exposure, clear-coat crazed across the horizontal surfaces, a fine pale dust film along the lower door, chrome glaring hot under direct sun, cream leather seating faded and dust-dulled with sun-cracked stitching.",
+      "position": "Framing the subject, its door line and windscreen surround crossing the lower third of the image"
+    }
+  ],
+  "background_setting": "An open desert highway, cracked hardpan and scattered creosote scrub beyond the road edge, low rock outcrops and distant mesas shimmering in heat haze. The background is defocused into a pale wash of ochre and bleached sky.",
+  "lighting": {
+    "conditions": "Harsh midday desert sun under a cloudless sky",
+    "direction": "Almost directly overhead, marginally forward of vertical",
+    "shadows": "Very short and hard-edged, pooled tightly under the hat brim and the chin, nearly black against the bright surroundings",
+    "illumination_effect": "Extreme contrast with blown highlights on the hat, shirt and upper bodywork and dense shadow beneath; airborne dust catching light as a pale haze, heat shimmer softening the far background"
+  },
+  "aesthetics": {
+    "composition": "Medium close-up holding the seated passenger slightly off centre in the upper half of the frame, the car's door line and windscreen frame running across the lower third, background compressed and defocused behind",
+    "color_scheme": "Bleached sand, pale ochre and washed-out sky, the red bodywork sun-faded toward orange, white linen and straw reading almost pure white in the glare",
+    "visual_texture": "Dust film and paint chalking, sun-cracked leather, linen weave and straw fibre catching hard light, fine dust in the air, heat shimmer distorting distant detail"
+  },
+  "cinematography": {
+    "camera_motion": "Slow drift, the camera holding the subject steady in frame with the vehicle nearly stationary relative to it",
+    "framing": "Medium close-up",
+    "camera_angle": "Eye-level, slightly to the side of the subject",
+    "depth_of_field": "Shallow, the subject sharp and the background falling away into soft bokeh",
+    "focus": "Locked on the seated passenger",
+    "lens_focal_length": "Short telephoto, flattering the face and compressing the background"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera in desert conditions",
+  "artistic_style": "Photorealistic portrait cinematography, high-key and sun-bleached",
+  "context": "A portrait of a passenger riding in an open-top car on an open desert highway at midday",
+  "actions": [
+    {
+      "time": "0:00-0:03",
+      "description": "The passenger sits in the open car under vertical sun, holding her hat against the wind as her scarf streams behind and heat haze softens the desert beyond."
+    },
+    {
+      "time": "0:03-0:06",
+      "description": "She turns her head, hard light glaring off the sun-faded paintwork, dust drifting through the air behind her."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:06",
+      "description": "A portrait of a passenger riding in an open-top car on an open desert highway at midday",
+      "key_changes": "Light shifts across the subject's face and the bodywork as the car moves; the defocused background drifts behind without ever resolving into detail."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 a woman sits in an open-top red car on a desert highway under vertical midday sun, holding a straw hat against the wind. By 0:03 her silk scarf streams back from her throat as heat haze shimmers over the defocused hardpan behind. Through to 0:06 the camera holds on her, hard light glaring off sun-faded paintwork and blowing out the white linen of her shirt.",
+  "audio_description": "A steady engine note carrying in dry open air, wind rushing hot across the open cabin, and the emptiness of a road with no other traffic. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "6s",
+  "fps": 30
+}

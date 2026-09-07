@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A long yellow convertible taxi cab with its roof down, travelling at speed across a city plaza with passengers aboard.",
+      "appearance_details": "Long steel bodywork in deep gloss yellow lacquer, a black-and-white chequer band running along the lower doors, chrome bumpers and window surrounds pitted with age and throwing sharp highlights, an illuminated roof sign above the windscreen, whitewall tyres with visible sidewall lettering, faint road film along the sills and behind the wheel arches.",
+      "position": "Centre frame in profile, travelling from left to right, filling the lower two thirds of the image"
+    },
+    {
+      "description": "Passengers riding in the open car, one with an arm raised above the windscreen line.",
+      "appearance_details": "Hair and loose clothing pulled backward by the airflow, faces and shoulders lit warmly by the low sun, fabric folding and moving as cloth rather than holding a fixed shape.",
+      "position": "In the open cabin at the centre of the vehicle, upper middle of the frame"
+    }
+  ],
+  "background_setting": "A broad city street bounded by pale stone civic buildings with tall arched windows and deep cornices, a row of mature palms rising in front of them. A white delivery van sits at the kerb further along. The carriageway is grey asphalt with worn lane markings, tram or service rails set into the surface, and a raised kerb of pale stone separating road from pavement.",
+  "lighting": {
+    "conditions": "Warm low-angle late-afternoon sunlight under a clear sky",
+    "direction": "Low and from the left, raking along the flank of the car toward the camera",
+    "shadows": "Long soft-edged shadows stretching across the roadway from the palms and the wall, with a firm dark contact shadow directly beneath the car anchoring it to the asphalt",
+    "illumination_effect": "Golden directional light producing hot specular highlights along the chrome and the shoulder line of the bodywork, cool bounced fill filling the shaded side, and a gentle bloom where the sun clips the trim"
+  },
+  "aesthetics": {
+    "composition": "Medium-wide profile framing that holds the car centrally as it travels, the stone building facades and palms forming a horizontal band across the upper third and the asphalt carriageway occupying the lower third, with the vehicle bridging the two",
+    "color_scheme": "Saturated yellow bodywork against warm cream walls, deep green hedging and palm fronds, and grey asphalt, the whole frame carrying the amber cast of low sun",
+    "visual_texture": "The car rendered in sharp photographic detail \u2014 paint depth, chrome pitting, tyre tread, panel reflections \u2014 set against a background smeared by the tracking motion of the camera"
+  },
+  "cinematography": {
+    "camera_motion": "Tracking laterally alongside the vehicle at matching speed, holding it steady in frame while the background streaks past",
+    "framing": "Medium-wide shot",
+    "camera_angle": "Slightly elevated, a little above the roofline, looking gently down at the car in profile",
+    "depth_of_field": "Moderate, the vehicle sharp with the background softened by distance and motion",
+    "focus": "Locked on the moving car throughout",
+    "lens_focal_length": "Medium telephoto, compressing the background behind the vehicle"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera from a tracking vehicle",
+  "artistic_style": "Photorealistic automotive cinematography",
+  "context": "A tracking shot of a convertible taxi travelling along a palm-lined boulevard at golden hour",
+  "actions": [
+    {
+      "time": "0:00-0:01",
+      "description": "The taxi travels left to right along the boulevard with the camera holding pace alongside it, sunlight sweeping along the flank as the wall and palms streak past behind."
+    },
+    {
+      "time": "0:01-0:02",
+      "description": "The car continues across the frame over a pedestrian crossing, the passengers' hair and clothing moving in the airflow, the contact shadow tracking beneath the wheels."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:02",
+      "description": "A single continuous lateral tracking shot alongside a yellow convertible taxi travelling down a palm-lined suburban boulevard in golden-hour light.",
+      "key_changes": "Specular highlights travel along the bodywork as the car moves; the stone facades, palms and parked van sweep past in heavy motion blur while the vehicle stays locked in frame."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 a yellow convertible taxi moves left to right along a palm-lined boulevard, the camera tracking alongside at matching speed while low golden sunlight rakes across its flank and flares off the chrome. By 0:01 the car crosses a pedestrian crossing, the passengers' hair and clothing streaming backward in the airflow. Through to 0:02 the vehicle holds its place in frame, its contact shadow travelling beneath the wheels, as the cream wall, green hedging and tall palms blur past behind it.",
+  "audio_description": "A steady engine note under load with tyre roar on warm asphalt, wind rushing across the open cabin, and the passing wash of roadside air. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "2s",
+  "fps": 30
+}

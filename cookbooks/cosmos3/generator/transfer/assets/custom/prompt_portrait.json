@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A woman seated as a passenger in an open-top convertible car, the roof down.",
+      "appearance_details": "A woman seated in the open car, long hair lifting slightly in the moving air, wearing a fitted dark jacket over a plain top, skin lit warmly from the low sun with soft shadow on the far side of her face, fabric reading as cloth with real weight and fold.",
+      "position": "Slightly off centre in the upper half of the frame, seen from the side at eye level"
+    },
+    {
+      "description": "The open-top car she is riding in, seen in part behind and around her.",
+      "appearance_details": "Deep gloss red lacquer on the door and rear quarter, the paint reading as automotive clear-coat with soft reflections of the sky along its curve, chrome window surround catching a hard highlight, cream leather seating with visible stitching and creasing.",
+      "position": "Framing the subject, its door line and windscreen surround crossing the lower third of the image"
+    }
+  ],
+  "background_setting": "An open road running along a hillside, dry grass and scattered scrub on the slope beyond, a low guard rail catching the light. Distant terrain recedes into warm haze. Everything behind the subject is thrown out of focus into soft rounded bokeh.",
+  "lighting": {
+    "conditions": "Warm low-angle late-afternoon sunlight, clear sky",
+    "direction": "Low and from behind and to the side, rimming the subject's hair and shoulder",
+    "shadows": "Soft-edged, with gentle shadow across the far side of the face and a warm bounce filling it from the car's interior",
+    "illumination_effect": "Golden backlight producing a bright rim along hair and shoulders, warm flare across the frame edge, and soft specular highlights on paintwork and chrome"
+  },
+  "aesthetics": {
+    "composition": "Medium close-up holding the seated passenger slightly off centre in the upper half of the frame, the car's door line and windscreen frame running across the lower third, background compressed and defocused behind",
+    "color_scheme": "Warm golden light against deep red bodywork and dry gold hillside tones, with cream leather and skin as the mid-values",
+    "visual_texture": "Photographic skin detail and individual hair strands catching backlight, fabric weave in the jacket, paint depth and clear-coat reflections, leather grain in the seating"
+  },
+  "cinematography": {
+    "camera_motion": "Slow drift, the camera holding the subject steady in frame with the vehicle nearly stationary relative to it",
+    "framing": "Medium close-up",
+    "camera_angle": "Eye-level, slightly to the side of the subject",
+    "depth_of_field": "Shallow, the subject sharp and the background falling away into soft bokeh",
+    "focus": "Locked on the seated passenger",
+    "lens_focal_length": "Short telephoto, flattering the face and compressing the background"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera",
+  "artistic_style": "Photorealistic portrait cinematography",
+  "context": "A portrait of a passenger riding in an open-top car on a hillside road at golden hour",
+  "actions": [
+    {
+      "time": "0:00-0:03",
+      "description": "The passenger sits in the open car, hair lifting in the moving air, the low sun rimming her shoulders as the defocused hillside drifts behind."
+    },
+    {
+      "time": "0:03-0:06",
+      "description": "She turns her head slightly, light shifting across her face, the car's red paintwork catching the sun along its curve."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:06",
+      "description": "A portrait of a passenger riding in an open-top car on a hillside road at golden hour",
+      "key_changes": "Light shifts across the subject's face and the bodywork as the car moves; the defocused background drifts behind without ever resolving into detail."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 a woman sits in an open-top red car on a hillside road, low golden sunlight rimming her hair and shoulders while the background falls away into soft bokeh. By 0:03 her hair lifts in the moving air and warm light shifts across her face. Through to 0:06 the camera holds on her, the red paintwork catching the sun along its curve, the defocused hillside drifting behind.",
+  "audio_description": "A steady engine note carrying from outside the frame, wind moving across the open cabin, and the quiet of an open road. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "6s",
+  "fps": 30
+}

@@ -267,6 +267,8 @@ def main():
                         help="automatic mask stability floor; lower keeps more marginal regions")
     parser.add_argument("--cut-threshold", type=float, default=25.0, help="frame difference counted as a cut")
     parser.add_argument("--min-shot", type=int, default=6, help="shots shorter than this are left unlabeled")
+    parser.add_argument("--reprompt", type=int, default=0,
+                        help="re-prompt every N frames within a shot; 0 prompts once per shot")
     parser.add_argument("--model", type=str, default="facebook/sam2.1-hiera-large")
     parser.add_argument("--keep-frames", action="store_true", help="keep the extracted JPEGs")
     args = parser.parse_args()
@@ -288,6 +290,22 @@ def main():
         shots = [(boundaries[i], boundaries[i + 1] if i + 1 < len(boundaries) else count)
                  for i in range(len(boundaries))]
         shots = [(first, last) for first, last in shots if last - first >= args.min_shot]
+        if args.reprompt > 0:
+            # Propagation decays when subjects move far from where they were
+            # prompted: on fast lateral footage the objects picked on frame 0
+            # have left the frame long before the shot ends, and coverage falls
+            # to nothing. Subdividing gives each window its own prompts. The
+            # cost is that object identity, and so colour, resets at each
+            # boundary -- worth it against frames that are simply blank.
+            windowed = []
+            for first, last in shots:
+                for start in range(first, last, args.reprompt):
+                    stop = min(start + args.reprompt, last)
+                    if stop - start >= args.min_shot:
+                        windowed.append((start, stop))
+                    elif windowed:
+                        windowed[-1] = (windowed[-1][0], stop)
+            shots = windowed
         print(f"{len(shots)} shot(s) over {count} frames "
               f"(cut threshold {args.cut_threshold:g}, shots under {args.min_shot} frames dropped)")
 

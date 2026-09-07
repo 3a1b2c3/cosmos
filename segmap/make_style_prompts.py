@@ -4,11 +4,11 @@
 # motion. Only appearance varies, which is what transfer is for. Camera and
 # composition fields are therefore identical in every variant -- they describe
 # the motion the control already encodes, so varying them would fight it.
+import argparse
 import json
 from pathlib import Path
 
 TRANSFER = Path(__file__).resolve().parent.parent / "cookbooks/cosmos3/generator/transfer"
-BASE = TRANSFER / "assets/custom/prompt_drive_a.json"
 
 STYLES = {
     "winter": {
@@ -81,8 +81,19 @@ STYLES = {
 
 
 def main():
-    base = json.loads(BASE.read_text(encoding="utf-8"))
-    spec_base = json.loads((TRANSFER / "specs/seg_drive_a.json").read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--tag", default="a",
+                        help="clip tag: reads prompt_drive_<tag>.json and seg_drive_<tag>.json")
+    args = parser.parse_args()
+
+    base_path = TRANSFER / f"assets/custom/prompt_drive_{args.tag}.json"
+    spec_path = TRANSFER / f"specs/seg_drive_{args.tag}.json"
+    for path in (base_path, spec_path):
+        if not path.is_file():
+            raise SystemExit(f"missing: {path}")
+    base = json.loads(base_path.read_text(encoding="utf-8"))
+    spec_base = json.loads(spec_path.read_text(encoding="utf-8"))
 
     for name, style in STYLES.items():
         prompt = json.loads(json.dumps(base))
@@ -108,15 +119,15 @@ def main():
         if set(prompt) != set(base):
             raise SystemExit(f"{name}: schema drifted from the base prompt")
 
-        prompt_path = TRANSFER / f"assets/custom/prompt_drive_a_{name}.json"
-        prompt_path.write_text(json.dumps(prompt, indent=2), encoding="utf-8")
+        out_prompt = TRANSFER / f"assets/custom/prompt_drive_{args.tag}_{name}.json"
+        out_prompt.write_text(json.dumps(prompt, indent=2), encoding="utf-8")
 
         spec = json.loads(json.dumps(spec_base))
-        spec["name"] = f"transfer_seg_drive_a_{name}"
-        spec["prompt_path"] = f"../assets/custom/prompt_drive_a_{name}.json"
-        spec_path = TRANSFER / f"specs/seg_drive_a_{name}.json"
-        spec_path.write_text(json.dumps(spec, indent=2), encoding="utf-8")
-        print(f"  {name:11s} {prompt_path.name}  +  {spec_path.name}")
+        spec["name"] = f"transfer_seg_drive_{args.tag}_{name}"
+        spec["prompt_path"] = f"../assets/custom/prompt_drive_{args.tag}_{name}.json"
+        out_spec = TRANSFER / f"specs/seg_drive_{args.tag}_{name}.json"
+        out_spec.write_text(json.dumps(spec, indent=2), encoding="utf-8")
+        print(f"  {name:11s} {out_prompt.name}  +  {out_spec.name}")
 
 
 if __name__ == "__main__":
