@@ -157,4 +157,10 @@ echo
 echo "=========================================="
 echo "Done. Generated clips:"
 echo "=========================================="
-find "$HERE/outputs/notebooks/diffusers" -name "vision.mp4" 2>/dev/null | sed "s|^|  |" || echo "  (none found under outputs/notebooks/diffusers)"
+# The notebook writes relative to its own directory, not the repo root.
+CLIPS="$(find "$HERE/cookbooks/cosmos3/generator/transfer/outputs" -name "vision.mp4" 2>/dev/null | sort)"
+if [ -n "$CLIPS" ]; then
+  echo "$CLIPS" | sed "s|^|  |"
+else
+  echo "  none found under cookbooks/cosmos3/generator/transfer/outputs/"
+fi

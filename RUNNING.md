@@ -77,9 +77,34 @@ used, or it fetches again.
 | `COSMOS3_DIFFUSERS_VENV` | `./.venv-cosmos3-diffusers` | Where the venv goes. |
 
 Nano mode runs a filtered copy of the notebook, so the checked-in one keeps its
-Super cells and is not rewritten by `--inplace`.
+Super cells and is not rewritten in place. The filter drops two things:
 
-Clips land in `outputs/notebooks/diffusers/<model>/<spec>/vision.mp4`.
+- **Cells from the first `## Super:` heading onward** — the 32B model, which
+  needs more than one GPU.
+- **The notebook's own install cell.** It builds a venv and installs the same
+  packages the script already installed, which costs minutes of silence on
+  every run and produces no output while it works.
+
+The venv guard cell is kept, so a wrong kernel still fails loudly rather than
+running against the wrong interpreter.
+
+Clips land under the cookbook directory, not the repo root:
+`cookbooks/cosmos3/generator/transfer/outputs/notebooks/diffusers/<model>/<spec>/vision.mp4`.
+
+The notebook also runs with `guardrails: False`, so the gated Guardrail
+repository may not be needed for blur, segmentation and WSM after all —
+despite the README listing it as a requirement.
+
+### Keeping the scripts in sync
+
+The scripts are edited on Windows and run on the DGX, so copy them across after
+a change:
+
+```bash
+scp run_transfer_headless.sh setup_diffusers.sh RUNNING.md <user>@<dgx>:~/cosmos/
+```
+
+A run that behaves like an older version usually means this step was missed.
 
 ### Watching it run
 
