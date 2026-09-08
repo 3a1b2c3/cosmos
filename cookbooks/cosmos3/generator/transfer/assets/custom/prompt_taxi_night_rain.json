@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A yellow convertible taxi cab with its roof down, driving away from the camera down a narrow street.",
+      "appearance_details": "A long yellow convertible taxi seen from behind, lacquer darkened and mirror-wet, water sheeting off the rear deck and beading across the boot lid, chrome catching hard coloured highlights, red upholstery soaked dark, tail lights flaring and doubling in the wet surface below.",
+      "position": "Centred in the lower half of the frame, seen from directly behind, receding down the street"
+    },
+    {
+      "description": "A passenger riding in the open rear of the car.",
+      "appearance_details": "A passenger in a soaked dark jacket, hair flattened by rain, lit intermittently in shifting colour as signage passes.",
+      "position": "In the open cabin at the centre of the vehicle, upper middle of the car's silhouette"
+    }
+  ],
+  "background_setting": "A narrow cobbled street through an old European town at night after heavy rain, the cobbles a black mirror carrying long smears of light from shopfront signage and street lamps. Timber-framed fa\u00e7ades rise into darkness above the lit ground floor. Standing water pools between the stones and along the gutter.",
+  "lighting": {
+    "conditions": "Night after heavy rain, lit by shop windows and street lamps",
+    "direction": "Multiple sources at low and mid height from both sides, no sky light",
+    "shadows": "Multiple overlapping shadows, hard-edged and shifting as the car passes each source, deep black beneath the vehicle",
+    "illumination_effect": "High contrast warm sodium and shop-window light raking across wet paintwork, every source doubled in the mirrored cobbles, tail lights bleeding red across the wet surface behind"
+  },
+  "aesthetics": {
+    "composition": "Chase framing with the car centred in the lower half of the image, its rear deck and tail filling the foreground, the street receding to a vanishing point ahead and building frontages closing in from both edges",
+    "color_scheme": "Deep blacks and wet stone against warm amber street lighting and coloured shop signage, the yellow bodywork reading dark and rich under mixed colour temperature",
+    "visual_texture": "Rain streaking across paintwork, water beading and shearing off in the airflow, sharp specular detail in wet chrome, mirrored reflections in cobbles broken by ripples"
+  },
+  "cinematography": {
+    "camera_motion": "Chase camera following directly behind the vehicle at matching speed, holding it centred while the street flows past on both sides",
+    "framing": "Medium-wide shot from behind",
+    "camera_angle": "Elevated, a little above roof height, looking down the street over the car",
+    "depth_of_field": "Deep, the vehicle and near street sharp with distance softening into atmosphere",
+    "focus": "Locked on the car and the road immediately ahead of it",
+    "lens_focal_length": "Wide-angle, opening up the street ahead"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera at high ISO from a following vehicle",
+  "artistic_style": "Photorealistic night automotive cinematography, high contrast and lamp-lit",
+  "context": "A chase shot following a convertible taxi through a rain-soaked old European town at night",
+  "actions": [
+    {
+      "time": "0:00-0:03",
+      "description": "The taxi moves down the wet cobbled street with the camera behind it, spray lifting from the rear wheels and lamp light streaking along its flanks."
+    },
+    {
+      "time": "0:03-0:07",
+      "description": "The car continues ahead through standing water, its tail lights bleeding red across the mirrored stones behind it."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:07",
+      "description": "A chase shot following a convertible taxi through a rain-soaked old European town at night",
+      "key_changes": "Light travels along the car's bodywork as it moves; fa\u00e7ades, street furniture and pedestrians sweep past on both sides while the vehicle holds the centre of frame."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 the camera follows a yellow taxi down a rain-soaked cobbled street at night, shopfront light streaking across its wet rear deck. By 0:03 spray lifts from the rear wheels and every lamp doubles in the mirrored stones. Through to 0:06 the car's tail lights bleed red across the wet surface as darkened timber fa\u00e7ades pass on both sides.",
+  "audio_description": "Engine note over the hiss of tyres on wet cobbles, rain drumming on bodywork, and the close wet acoustics of a narrow street. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "7s",
+  "fps": 30
+}

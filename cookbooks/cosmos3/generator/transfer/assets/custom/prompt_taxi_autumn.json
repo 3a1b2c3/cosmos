@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A yellow convertible taxi cab with its roof down, driving away from the camera down a narrow street.",
+      "appearance_details": "A long yellow convertible taxi seen from behind, lacquer warm and slightly dulled, a scatter of fallen leaves caught in the rear deck and against the base of the windscreen, chrome catching low amber light, red upholstery deepened by the warm cast, damp road film along the lower panels.",
+      "position": "Centred in the lower half of the frame, seen from directly behind, receding down the street"
+    },
+    {
+      "description": "A passenger riding in the open rear of the car.",
+      "appearance_details": "A passenger in a wool coat with the collar up, hair lifting in the cool air, lit warmly from the low sun ahead.",
+      "position": "In the open cabin at the centre of the vehicle, upper middle of the car's silhouette"
+    }
+  ],
+  "background_setting": "A narrow cobbled street through an old European town in autumn, street trees in deep gold and rust dropping leaves that drift and skitter across the stones. Timber-framed houses stand warm in low sun on one side and in blue shade on the other. Damp patches darken the cobbles, and drifts of leaves gather along the kerb.",
+  "lighting": {
+    "conditions": "Low autumn sun under a clear sky, late in the afternoon",
+    "direction": "Very low and from directly ahead, backlighting the street toward the camera",
+    "shadows": "Long shadows stretching back toward the camera from every object, with the car's own shadow running ahead of it",
+    "illumination_effect": "Strong warm backlight rimming the car and the falling leaves, haze and flare where the sun sits low in frame, deep cool shadow filling the shaded side of the street"
+  },
+  "aesthetics": {
+    "composition": "Chase framing with the car centred in the lower half of the image, its rear deck and tail filling the foreground, the street receding to a vanishing point ahead and building frontages closing in from both edges",
+    "color_scheme": "Deep golds, rust and amber of autumn foliage against warm render and grey cobbles, the yellow bodywork blending into a broadly warm palette with cool blue shade as counterpoint",
+    "visual_texture": "Individual leaves tumbling and catching backlight, damp cobbles with a low sheen, warm grain in render and timber, dust and pollen suspended in the low sun"
+  },
+  "cinematography": {
+    "camera_motion": "Chase camera following directly behind the vehicle at matching speed, holding it centred while the street flows past on both sides",
+    "framing": "Medium-wide shot from behind",
+    "camera_angle": "Elevated, a little above roof height, looking down the street over the car",
+    "depth_of_field": "Deep, the vehicle and near street sharp with distance softening into atmosphere",
+    "focus": "Locked on the car and the road immediately ahead of it",
+    "lens_focal_length": "Wide-angle, opening up the street ahead"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera from a following vehicle",
+  "artistic_style": "Photorealistic automotive cinematography, warm and backlit",
+  "context": "A chase shot following a convertible taxi through an old European town on a low-sun autumn afternoon",
+  "actions": [
+    {
+      "time": "0:00-0:03",
+      "description": "The taxi moves down the cobbled street with the camera behind it, fallen leaves lifting and tumbling in its wake as low sun flares between the buildings."
+    },
+    {
+      "time": "0:03-0:07",
+      "description": "The car continues ahead into the backlight, its long shadow running toward the camera as gold foliage passes on both sides."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:07",
+      "description": "A chase shot following a convertible taxi through an old European town on a low-sun autumn afternoon",
+      "key_changes": "Light travels along the car's bodywork as it moves; fa\u00e7ades, street furniture and pedestrians sweep past on both sides while the vehicle holds the centre of frame."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 the camera follows a yellow taxi down a cobbled street lined with gold autumn trees, low sun flaring between the timber-framed houses ahead. By 0:03 fallen leaves lift and tumble in the car's wake across the damp stones. Through to 0:06 the car drives into the backlight, its long shadow stretching back toward the camera.",
+  "audio_description": "Engine note under acceleration, tyres drumming over cobblestones, dry leaves skittering in the wake, and the close acoustics of a narrow street. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "7s",
+  "fps": 30
+}

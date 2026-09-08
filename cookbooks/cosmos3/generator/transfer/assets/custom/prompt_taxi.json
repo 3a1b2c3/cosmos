@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A yellow convertible taxi cab with its roof down, driving away from the camera down a narrow street.",
+      "appearance_details": "A long yellow convertible taxi seen from behind, roof down, deep gloss lacquer over steel with a black-and-white chequer band along the flanks, chrome bumper and tail trim pitted with age, red upholstery visible in the open cabin, tail lights and licence plate catching the light, road film along the lower panels.",
+      "position": "Centred in the lower half of the frame, seen from directly behind, receding down the street"
+    },
+    {
+      "description": "A passenger riding in the open rear of the car.",
+      "appearance_details": "A passenger in the open rear seat, hair and clothing pulled backward by the airflow, lit by the same daylight as the street.",
+      "position": "In the open cabin at the centre of the vehicle, upper middle of the car's silhouette"
+    }
+  ],
+  "background_setting": "A narrow cobbled street through an old European town, timber-framed houses with white render and dark beams rising on both sides, shopfronts with hanging signs and awnings at street level, street trees and lamp posts along the kerb. Pedestrians move along the pavements. The cobbles are uneven and worn, with tram lines and drain covers set into them.",
+  "lighting": {
+    "conditions": "Bright daylight under a lightly clouded sky",
+    "direction": "High and from the front-left, throwing the shadow of the car back toward the camera",
+    "shadows": "Crisp-edged shadows from buildings falling across the street, with a firm contact shadow beneath the car anchoring it to the cobbles",
+    "illumination_effect": "Clean directional light with specular highlights along the chrome and the car's shoulder line, fa\u00e7ades brightly lit on one side of the street and in shade on the other"
+  },
+  "aesthetics": {
+    "composition": "Chase framing with the car centred in the lower half of the image, its rear deck and tail filling the foreground, the street receding to a vanishing point ahead and building frontages closing in from both edges",
+    "color_scheme": "Saturated yellow bodywork against warm render, dark timber framing and grey cobbles, with red upholttery and shop signage as accents",
+    "visual_texture": "Individual cobblestones with worn edges and mortar joints, render and timber grain on the fa\u00e7ades, paint depth and chrome pitting on the car, fabric and hair movement in the airflow"
+  },
+  "cinematography": {
+    "camera_motion": "Chase camera following directly behind the vehicle at matching speed, holding it centred while the street flows past on both sides",
+    "framing": "Medium-wide shot from behind",
+    "camera_angle": "Elevated, a little above roof height, looking down the street over the car",
+    "depth_of_field": "Deep, the vehicle and near street sharp with distance softening into atmosphere",
+    "focus": "Locked on the car and the road immediately ahead of it",
+    "lens_focal_length": "Wide-angle, opening up the street ahead"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera from a following vehicle",
+  "artistic_style": "Photorealistic automotive cinematography",
+  "context": "A chase shot following a convertible taxi through an old European town",
+  "actions": [
+    {
+      "time": "0:00-0:03",
+      "description": "The taxi accelerates down the cobbled street with the camera holding station behind it, fa\u00e7ades and pedestrians sweeping past on both sides."
+    },
+    {
+      "time": "0:03-0:07",
+      "description": "The car continues ahead, its body settling over the uneven cobbles, shadow tracking beneath it as the street opens toward a junction."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:07",
+      "description": "A chase shot following a convertible taxi through an old European town",
+      "key_changes": "Light travels along the car's bodywork as it moves; fa\u00e7ades, street furniture and pedestrians sweep past on both sides while the vehicle holds the centre of frame."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 the camera follows a yellow convertible taxi down a narrow cobbled street between timber-framed houses, holding station directly behind it. By 0:03 fa\u00e7ades, shopfronts and pedestrians sweep past on both sides as the car settles over the uneven surface. Through to 0:06 the street opens ahead, the car's shadow tracking beneath it and chrome catching the daylight.",
+  "audio_description": "Engine note under acceleration, tyres drumming over cobblestones, the close acoustics of a narrow street, and faint pedestrian noise. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "7s",
+  "fps": 30
+}

@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A yellow convertible taxi cab with its roof down, driving away from the camera down a narrow street.",
+      "appearance_details": "A long yellow convertible taxi seen from behind, its lacquer dulled under road salt, grey slush crusted along the sills and thrown up behind the rear wheels, chrome cold and bluish with meltwater beading, red upholstery dusted with snow, tail lights burning warm against the grey air.",
+      "position": "Centred in the lower half of the frame, seen from directly behind, receding down the street"
+    },
+    {
+      "description": "A passenger riding in the open rear of the car.",
+      "appearance_details": "A passenger bundled in a heavy coat and knitted scarf, breath condensing and streaming backward in the freezing air.",
+      "position": "In the open cabin at the centre of the vehicle, upper middle of the car's silhouette"
+    }
+  ],
+  "background_setting": "A narrow cobbled street through an old European town under snow, timber-framed houses with snow lying along every ledge and window sill, banks of ploughed snow heaped at the kerb and dark slush tracked down the middle of the carriageway. Bare street trees stand black against the white. Shopfront lights burn warm in the dim afternoon.",
+  "lighting": {
+    "conditions": "Flat overcast winter daylight under heavy snow cloud",
+    "direction": "Diffuse and near-directionless, marginally brighter from above",
+    "shadows": "Weak and soft, with only a faint contact shadow beneath the car in the compacted snow",
+    "illumination_effect": "Cold blue-grey ambient light at low contrast, snow acting as a huge reflector filling the underside of the car; shopfront windows and tail lights are the only warm sources"
+  },
+  "aesthetics": {
+    "composition": "Chase framing with the car centred in the lower half of the image, its rear deck and tail filling the foreground, the street receding to a vanishing point ahead and building frontages closing in from both edges",
+    "color_scheme": "Desaturated blue-greys and whites of snow and overcast sky, dark wet cobbles showing through in wheel tracks, with the yellow bodywork and warm shop lights the only saturated colour",
+    "visual_texture": "Snow crystals along ledges and roof tiles, slush spray caught behind the wheels, salt film and meltwater on paintwork, breath condensing in the cold"
+  },
+  "cinematography": {
+    "camera_motion": "Chase camera following directly behind the vehicle at matching speed, holding it centred while the street flows past on both sides",
+    "framing": "Medium-wide shot from behind",
+    "camera_angle": "Elevated, a little above roof height, looking down the street over the car",
+    "depth_of_field": "Deep, the vehicle and near street sharp with distance softening into atmosphere",
+    "focus": "Locked on the car and the road immediately ahead of it",
+    "lens_focal_length": "Wide-angle, opening up the street ahead"
+  },
+  "style_medium": "Live-action video captured on a full-frame digital cinema camera from a following vehicle in winter conditions",
+  "artistic_style": "Photorealistic automotive cinematography, cold and naturalistic",
+  "context": "A chase shot following a convertible taxi through a snowbound old European town",
+  "actions": [
+    {
+      "time": "0:00-0:03",
+      "description": "The taxi moves down the snow-covered street with the camera behind it, slush spraying from the rear wheels as snow-laden fa\u00e7ades pass on both sides."
+    },
+    {
+      "time": "0:03-0:07",
+      "description": "The car continues ahead through compacted snow, its wheels cutting dark tracks, the passenger's breath streaming backward in the freezing air."
+    }
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:07",
+      "description": "A chase shot following a convertible taxi through a snowbound old European town",
+      "key_changes": "Light travels along the car's bodywork as it moves; fa\u00e7ades, street furniture and pedestrians sweep past on both sides while the vehicle holds the centre of frame."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 the camera follows a yellow taxi down a snow-covered cobbled street between timber-framed houses under flat grey light. By 0:03 slush sprays from the rear wheels and the passenger's breath condenses in the freezing air. Through to 0:06 the wheels cut dark tracks through packed snow as warm shopfront windows pass on both sides.",
+  "audio_description": "A muffled engine note, tyres compressing packed snow with a crunching hiss, and the deadened acoustics of a snow-covered street. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "7s",
+  "fps": 30
+}
