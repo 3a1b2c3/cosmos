@@ -1,0 +1,66 @@
+{
+  "subjects": [
+    {
+      "description": "A yellow New York City taxi cab, seen from a third-person driving-game view just behind and above it, driving forward down a wide downtown avenue.",
+      "appearance_details": "Classic yellow NYC taxi livery, roof-mounted illuminated taxi sign, brake lights glowing red as the cab moves steadily forward, wet reflections streaking along its rear bodywork and rear window.",
+      "position": "Centre frame, lower-middle of the image, moving away from camera down the avenue"
+    },
+    {
+      "description": "A line of orange-and-white traffic cones set out along the lane ahead of the taxi.",
+      "appearance_details": "Standard orange traffic cones with white reflective bands; when clipped by the taxi's front bumper a cone tips over and topples flat onto the wet asphalt, sometimes skidding or bouncing a short distance from the impact.",
+      "position": "In the lane ahead of the taxi, ground level"
+    }
+  ],
+  "background_setting": "A wide, rain-slicked downtown avenue at dusk, flanked by tall glass and steel office towers whose windows catch the low golden light. Other parked and passing cars line the curb lanes, and pedestrians walk along the sidewalks past storefronts with illuminated signs.",
+  "lighting": {
+    "conditions": "Dusk, overcast/golden-hour transition light",
+    "direction": "Low, raking light from the towers' reflective glass and the fading sky",
+    "shadows": "Soft and elongated, blurred further by the wet road surface",
+    "illumination_effect": "Wet asphalt reflects taillights and the warm evening sky; storefront signage and window light glow against the darkening street"
+  },
+  "aesthetics": {
+    "composition": "Third-person driving-game framing, camera positioned just behind and above the taxi, the avenue receding in a straight perspective toward the vanishing point between the towers",
+    "color_scheme": "Warm golden dusk light against cool wet-asphalt grays, punctuated by the taxi's yellow, red brake lights, and orange traffic cones",
+    "visual_texture": "Rain-slicked asphalt with mirror-like reflections, glass tower facades, illuminated storefront signage"
+  },
+  "cinematography": {
+    "camera_motion": "Tracking smoothly behind and slightly above the taxi as it drives forward down the avenue",
+    "framing": "Medium-wide third-person chase/driving-game shot",
+    "camera_angle": "Slightly elevated, looking down and forward over the taxi's roof",
+    "depth_of_field": "Deep focus, avenue and towers sharp into the distance",
+    "focus": "Locked on the taxi throughout",
+    "lens_focal_length": "Medium, game-camera perspective"
+  },
+  "style_medium": "Photorealistic third-person driving-game cinematography",
+  "artistic_style": "Cinematic, photorealistic urban night/dusk driving scene",
+  "context": "A third-person driving-game view of a yellow NYC taxi driving down a rain-slicked downtown avenue at dusk, clipping a traffic cone set out in its lane",
+  "actions": [
+    {
+      "time": "0:00-0:04",
+      "description": "The taxi drives steadily forward down the avenue, brake lights glowing red, camera tracking smoothly behind it past parked cars and pedestrians on the sidewalks."
+    },
+    {
+      "time": "0:04-0:08",
+      "description": "The taxi's front bumper clips one of the orange-and-white traffic cones set out in a line ahead; the cone tips over and topples flat onto the wet asphalt, skidding a short distance, while the taxi continues forward undamaged."
+    }
+  ],
+  "text_and_signage_elements": ["illuminated storefront signage", "taxi roof sign"],
+  "segments": [
+    {
+      "segment_index": 0,
+      "time_range": "0:00-0:08",
+      "description": "A third-person driving-game view of a yellow NYC taxi driving down a rain-slicked downtown avenue at dusk, clipping a traffic cone",
+      "key_changes": "Reflections travel across the wet asphalt and glass towers as the taxi advances; a cone is struck and topples flat, skidding from the impact, while the taxi continues on undamaged."
+    }
+  ],
+  "transitions": [],
+  "temporal_caption": "At 0:00 a yellow New York City taxi cab drives forward down a wide, rain-slicked downtown avenue at dusk, brake lights glowing red as the camera tracks smoothly behind it. Tall glass and steel office towers rise on both sides, their windows catching the low golden light, while parked and passing cars line the curb and pedestrians walk past illuminated storefronts. By 0:04 the taxi's front bumper clips an orange-and-white traffic cone set out in its lane; the cone tips over and topples flat onto the wet asphalt, skidding a short distance from the impact. Through to 0:08 the taxi continues forward undamaged, the wet road holding a mirrored reflection of the taillights and warm evening sky.",
+  "audio_description": "A steady engine note and tire hiss on wet asphalt, ambient city traffic and distant pedestrian noise, a soft clatter as the cone is struck and skids across the road. No dialogue or music.",
+  "resolution": {
+    "W": 1280,
+    "H": 720
+  },
+  "aspect_ratio": "16,9",
+  "duration": "8s",
+  "fps": 30
+}

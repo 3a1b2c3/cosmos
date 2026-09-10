@@ -43,7 +43,7 @@ the notebook with that kernel already selected.
 sudo apt-get install -y libxcb1 libgl1 libglib2.0-0
 export HF_TOKEN=<token>
 export HF_HUB_DISABLE_SYMLINKS=1              # see "The symlink guard on the DGX"
-uvx hf@latest download nvidia/Cosmos3-Nano    # 1.23 GB, resumable
+uvx hf@latest download nvidia/Cosmos3-Nano    # 35 GB, resumable
 bash run_transfer_headless.sh
 ```
 
@@ -64,11 +64,15 @@ Pull the checkpoint separately rather than letting the notebook do it. It is
 resumable, it reports progress, and it separates "the download failed" from
 "generation failed" — one long command that dies tells you neither.
 
-Cosmos3-Nano is **1.23 GB across 68 files**, not the tens of gigabytes the
-model-family table implies: the `64B / 16B / 4B` figures there are three
-different models in adjacent columns. Downloads land in `$HF_HOME` when set and
-`~/.cache/huggingface` otherwise — the run has to use whichever the download
-used, or it fetches again.
+Cosmos3-Nano occupies **35 GB** in the cache, measured with `du -sh` on a
+completed download. A partial download reports far less — an early figure of
+1.23 GB here was a transfer caught mid-flight, not the finished size — so check
+after the download reports completion rather than during. The size is
+consistent with the model card's `64B total / 16B active` mixture-of-experts
+description, and with the roughly 30 GB of CUDA memory each run allocates.
+
+Downloads land in `$HF_HOME` when set and `~/.cache/huggingface` otherwise —
+the run has to use whichever the download used, or it fetches again.
 
 | Variable | Default | Effect |
 | --- | --- | --- |
