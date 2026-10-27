@@ -80,7 +80,9 @@ fi
 
 echo "[2/3] Verifying the environment..."
 python -c "import torch; print(f'torch {torch.__version__} cuda={torch.cuda.is_available()} built_for={torch.version.cuda}'); raise SystemExit(0 if torch.cuda.is_available() else 'torch cannot see the GPU: it resolved to a CPU build, or the driver predates it')"
-if ! python -c "import huggingface_hub, sys; sys.exit(0 if huggingface_hub.get_token() else 1)" 2>/dev/null; then
+if [ "${HF_HUB_OFFLINE:-0}" = "1" ]; then
+  echo "      HF_HUB_OFFLINE=1: using cached checkpoints only, no token needed."
+elif ! python -c "import huggingface_hub, sys; sys.exit(0 if huggingface_hub.get_token() else 1)" 2>/dev/null; then
   echo "ERROR: no Hugging Face token, so the checkpoint download will fail." >&2
   echo "  uvx hf@latest auth login   (or export HF_TOKEN)" >&2
   exit 1
